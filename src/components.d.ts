@@ -6,30 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AppHome {
+    interface AboutPage {
     }
-    interface AppProfile {
+    interface AppHome {
     }
     interface AppRoot {
     }
     interface ColorPicker {
         "target": any;
     }
+    interface EditHabit {
+    }
     interface NewHabit {
     }
 }
 declare global {
+    interface HTMLAboutPageElement extends Components.AboutPage, HTMLStencilElement {
+    }
+    var HTMLAboutPageElement: {
+        prototype: HTMLAboutPageElement;
+        new (): HTMLAboutPageElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
-    };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
     };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
@@ -43,6 +45,12 @@ declare global {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
     };
+    interface HTMLEditHabitElement extends Components.EditHabit, HTMLStencilElement {
+    }
+    var HTMLEditHabitElement: {
+        prototype: HTMLEditHabitElement;
+        new (): HTMLEditHabitElement;
+    };
     interface HTMLNewHabitElement extends Components.NewHabit, HTMLStencilElement {
     }
     var HTMLNewHabitElement: {
@@ -50,30 +58,34 @@ declare global {
         new (): HTMLNewHabitElement;
     };
     interface HTMLElementTagNameMap {
+        "about-page": HTMLAboutPageElement;
         "app-home": HTMLAppHomeElement;
-        "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "color-picker": HTMLColorPickerElement;
+        "edit-habit": HTMLEditHabitElement;
         "new-habit": HTMLNewHabitElement;
     }
 }
 declare namespace LocalJSX {
-    interface AppHome {
+    interface AboutPage {
     }
-    interface AppProfile {
+    interface AppHome {
     }
     interface AppRoot {
     }
     interface ColorPicker {
         "target"?: any;
     }
+    interface EditHabit {
+    }
     interface NewHabit {
     }
     interface IntrinsicElements {
+        "about-page": AboutPage;
         "app-home": AppHome;
-        "app-profile": AppProfile;
         "app-root": AppRoot;
         "color-picker": ColorPicker;
+        "edit-habit": EditHabit;
         "new-habit": NewHabit;
     }
 }
@@ -81,10 +93,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "about-page": LocalJSX.AboutPage & JSXBase.HTMLAttributes<HTMLAboutPageElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
+            "edit-habit": LocalJSX.EditHabit & JSXBase.HTMLAttributes<HTMLEditHabitElement>;
             "new-habit": LocalJSX.NewHabit & JSXBase.HTMLAttributes<HTMLNewHabitElement>;
         }
     }

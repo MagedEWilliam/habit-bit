@@ -36,6 +36,10 @@ export class ColorPicker {
       color.style.background = color.getAttribute('value');
       color.addEventListener('click', (e)=>{
         document.querySelector(`#${this.target}`).value = e.target.getAttribute('value');
+        document.querySelectorAll('.selected').forEach(selected=>{
+          selected.classList.remove('selected')
+        })
+        e.target.classList.add('selected')
       })
     })
   }

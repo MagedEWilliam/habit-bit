@@ -13,6 +13,7 @@
     padding-inline-end: 8px;
 }
 
+ion-radio::part(container),
 ion-select::part(text){
     display: none !important;
 }

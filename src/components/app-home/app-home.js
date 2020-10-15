@@ -54,8 +54,8 @@ export class AppHome {
             <ion-fab-button color="light">
               <ion-icon name="download-outline"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="light">
-              <ion-icon name="help-circle-outline"></ion-icon>
+            <ion-fab-button color="light" href="/about/">
+              <ion-icon name="help-circle-outline" ></ion-icon>
             </ion-fab-button>
             <ion-fab-button color="light" onClick={()=> this.viewNewHabit()} >
               <ion-icon name="add"></ion-icon>
@@ -74,7 +74,6 @@ export class AppHome {
               </ion-label>
                 <ion-select slot="end" interface="popover">
                   <ion-select-option value="Edit">Edit</ion-select-option>
-                  <ion-select-option value="View">View</ion-select-option>
                   <ion-select-option value="Delete">Delete</ion-select-option>
                   <ion-select-option value="close">close</ion-select-option>
                 </ion-select>
@@ -89,7 +88,6 @@ export class AppHome {
               </ion-label>
                 <ion-select slot="end" interface="popover">
                   <ion-select-option value="Edit">Edit</ion-select-option>
-                  <ion-select-option value="View">View</ion-select-option>
                   <ion-select-option value="Delete">Delete</ion-select-option>
                   <ion-select-option value="close">close</ion-select-option>
                 </ion-select>
@@ -104,7 +102,6 @@ export class AppHome {
               </ion-label>
                 <ion-select slot="end" interface="popover">
                   <ion-select-option value="Edit">Edit</ion-select-option>
-                  <ion-select-option value="View">View</ion-select-option>
                   <ion-select-option value="Delete">Delete</ion-select-option>
                   <ion-select-option value="close">close</ion-select-option>
                 </ion-select>

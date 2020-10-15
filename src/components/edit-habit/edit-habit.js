@@ -1,10 +1,10 @@
 import { Component, h } from '@stencil/core';
 
 @Component({
-  tag: 'new-habit',
-  styleUrl: 'new-habit.css',
+  tag: 'edit-habit',
+  styleUrl: 'edit-habit.css',
 })
-export class NewHabit {
+export class EditHabit {
 
   router = document.querySelector('ion-router')
 
@@ -19,7 +19,7 @@ export class NewHabit {
         <ion-toolbar>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-title size="large">New habits</ion-title>
+          <ion-title size="large">Edit habits</ion-title>
         </ion-toolbar>
       </ion-header>,
 
