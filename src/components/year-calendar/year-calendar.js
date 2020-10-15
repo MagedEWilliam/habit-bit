@@ -29,7 +29,7 @@ export class YearCalendar {
             let monthData = [];
             monthData.push(<div class="month-title">{monthNames[month-1]}</div>)
             for (let day = 1; day <= getDaysInMonth(Number(month), year); day++) {
-                monthData.push(<div class="day">{day.toString().padStart(2, '0')}</div>)
+                monthData.push(<div class={`day date-${month}-${day}`} month={month} day={day}>{day.toString().padStart(2, '0')}</div>)
             }
             yearData.push(<div class="month">{...monthData}</div>)
         }

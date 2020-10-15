@@ -15,7 +15,7 @@ export class CheckIn {
   render() {
     return [
       <ion-content>
-        <ion-grid>
+        <ion-grid class="ion-no-padding">
           <ion-row>
             <year-calendar></year-calendar>
           </ion-row>

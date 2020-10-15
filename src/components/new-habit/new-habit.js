@@ -15,7 +15,8 @@ export class NewHabit {
   render() {
     return [
       <ion-header>
-        
+        <ion-toolbar>
+        </ion-toolbar>
         <ion-toolbar>
         </ion-toolbar>
         <ion-toolbar>
@@ -33,7 +34,7 @@ export class NewHabit {
           <ion-label>Color</ion-label>
           <input id="color" type="color" value="#0CC5FD"></input>
         </ion-item>
-       <color-picker target="color"/>
+        <color-picker class="ion-padding" target="color"/>
 
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
           <ion-fab-button color="light">
