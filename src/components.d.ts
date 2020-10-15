@@ -9,9 +9,13 @@ export namespace Components {
     interface AppHome {
     }
     interface AppProfile {
-        "name": any;
     }
     interface AppRoot {
+    }
+    interface ColorPicker {
+        "target": any;
+    }
+    interface NewHabit {
     }
 }
 declare global {
@@ -33,24 +37,44 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
+    }
+    var HTMLColorPickerElement: {
+        prototype: HTMLColorPickerElement;
+        new (): HTMLColorPickerElement;
+    };
+    interface HTMLNewHabitElement extends Components.NewHabit, HTMLStencilElement {
+    }
+    var HTMLNewHabitElement: {
+        prototype: HTMLNewHabitElement;
+        new (): HTMLNewHabitElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "color-picker": HTMLColorPickerElement;
+        "new-habit": HTMLNewHabitElement;
     }
 }
 declare namespace LocalJSX {
     interface AppHome {
     }
     interface AppProfile {
-        "name"?: any;
     }
     interface AppRoot {
+    }
+    interface ColorPicker {
+        "target"?: any;
+    }
+    interface NewHabit {
     }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "color-picker": ColorPicker;
+        "new-habit": NewHabit;
     }
 }
 export { LocalJSX as JSX };
@@ -60,6 +84,8 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
+            "new-habit": LocalJSX.NewHabit & JSXBase.HTMLAttributes<HTMLNewHabitElement>;
         }
     }
 }

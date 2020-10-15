@@ -7,12 +7,8 @@ import { sayHello } from '../../helpers/utils';
 })
 export class AppProfile {
   @State() state = false;
-  @Prop() name;
 
   formattedName() {
-    if (this.name) {
-      return this.name.substr(0, 1).toUpperCase() + this.name.substr(1).toLowerCase();
-    }
     return '';
   }
 
@@ -23,7 +19,7 @@ export class AppProfile {
           <ion-buttons slot="start">
             <ion-back-button defaultHref="/" />
           </ion-buttons>
-          <ion-title>Profile: {this.name}</ion-title>
+          <ion-title>Profile: </ion-title>
         </ion-toolbar>
       </ion-header>,
 
