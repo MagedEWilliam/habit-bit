@@ -16,8 +16,13 @@ export class About {
     return [
       <ion-header>
         <ion-toolbar>
-          <ion-title>About</ion-title>
-        </ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button href="/">
+            Back
+          </ion-button>
+        </ion-buttons>
+        <ion-title>About</ion-title>
+      </ion-toolbar>
       </ion-header>,
 
       <ion-content>

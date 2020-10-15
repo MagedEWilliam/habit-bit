@@ -1,0 +1,26 @@
+year-calendar{
+    margin: auto;
+}
+year-calendar .year{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 1px;
+}
+
+year-calendar .month-title,
+year-calendar .day{
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #CECECE;
+}
+
+year-calendar .day{
+    background: #CECECE;
+    color: #fff;
+}

@@ -16,11 +16,6 @@ export class AppHome {
     });
   }
 
-  viewNewHabit(){
-    this.router.push('/new-habit/', 'forward')
-  }
-
-
   render() {
     return [
       <ion-header>
@@ -40,7 +35,7 @@ export class AppHome {
 
       <ion-content>
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button class="fab-with-label" color="warning">
+          <ion-fab-button href="/check-in/" class="fab-with-label" color="warning">
             <p class="ion-padding-end">Check in</p>
             <ion-icon name="caret-forward-circle-outline"></ion-icon>
           </ion-fab-button>
@@ -57,7 +52,7 @@ export class AppHome {
             <ion-fab-button color="light" href="/about/">
               <ion-icon name="help-circle-outline" ></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="light" onClick={()=> this.viewNewHabit()} >
+            <ion-fab-button color="light" href="/new-habit/" >
               <ion-icon name="add"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>

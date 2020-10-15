@@ -12,12 +12,17 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface CheckIn {
+    }
     interface ColorPicker {
         "target": any;
     }
     interface EditHabit {
     }
     interface NewHabit {
+    }
+    interface YearCalendar {
+        "date": string;
     }
 }
 declare global {
@@ -39,6 +44,12 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLCheckInElement extends Components.CheckIn, HTMLStencilElement {
+    }
+    var HTMLCheckInElement: {
+        prototype: HTMLCheckInElement;
+        new (): HTMLCheckInElement;
+    };
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
     }
     var HTMLColorPickerElement: {
@@ -57,13 +68,21 @@ declare global {
         prototype: HTMLNewHabitElement;
         new (): HTMLNewHabitElement;
     };
+    interface HTMLYearCalendarElement extends Components.YearCalendar, HTMLStencilElement {
+    }
+    var HTMLYearCalendarElement: {
+        prototype: HTMLYearCalendarElement;
+        new (): HTMLYearCalendarElement;
+    };
     interface HTMLElementTagNameMap {
         "about-page": HTMLAboutPageElement;
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
+        "check-in": HTMLCheckInElement;
         "color-picker": HTMLColorPickerElement;
         "edit-habit": HTMLEditHabitElement;
         "new-habit": HTMLNewHabitElement;
+        "year-calendar": HTMLYearCalendarElement;
     }
 }
 declare namespace LocalJSX {
@@ -73,6 +92,8 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface CheckIn {
+    }
     interface ColorPicker {
         "target"?: any;
     }
@@ -80,13 +101,19 @@ declare namespace LocalJSX {
     }
     interface NewHabit {
     }
+    interface YearCalendar {
+        "date"?: string;
+        "onCalendarSelected"?: (event: CustomEvent<any>) => void;
+    }
     interface IntrinsicElements {
         "about-page": AboutPage;
         "app-home": AppHome;
         "app-root": AppRoot;
+        "check-in": CheckIn;
         "color-picker": ColorPicker;
         "edit-habit": EditHabit;
         "new-habit": NewHabit;
+        "year-calendar": YearCalendar;
     }
 }
 export { LocalJSX as JSX };
@@ -96,9 +123,11 @@ declare module "@stencil/core" {
             "about-page": LocalJSX.AboutPage & JSXBase.HTMLAttributes<HTMLAboutPageElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "check-in": LocalJSX.CheckIn & JSXBase.HTMLAttributes<HTMLCheckInElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "edit-habit": LocalJSX.EditHabit & JSXBase.HTMLAttributes<HTMLEditHabitElement>;
             "new-habit": LocalJSX.NewHabit & JSXBase.HTMLAttributes<HTMLNewHabitElement>;
+            "year-calendar": LocalJSX.YearCalendar & JSXBase.HTMLAttributes<HTMLYearCalendarElement>;
         }
     }
 }
