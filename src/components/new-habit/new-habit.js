@@ -1,4 +1,6 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Element } from '@stencil/core';
+import state from '../store/store.js';
+import { v4 as uuidv4 } from "uuid";
 
 @Component({
   tag: 'new-habit',
@@ -6,10 +8,31 @@ import { Component, h } from '@stencil/core';
 })
 export class NewHabit {
 
+  @Element() page;
+  @State() habits;
+
   router = document.querySelector('ion-router')
 
   viewHome(){
-    this.router.push('/', 'backward')
+    this.router.push('/')
+  }
+
+  createNewHabit(){
+
+    if(this.page.querySelector('ion-input').value.trim()){
+      // change the state
+      state.habits = [ ...state.habits, {
+        order: state.habits.length,
+        name: this.page.querySelector('ion-input').value.trim(),
+        id: uuidv4().toString(),
+        color: this.page.querySelector('#color').value
+      }];
+      console.log(state.habits);
+      this.router.push('/')
+    }else{
+      this.page.querySelector('ion-input').setFocus();
+    }
+
   }
 
   render() {
@@ -27,7 +50,7 @@ export class NewHabit {
       <ion-content>
         <ion-item>
           <ion-label>Habit name</ion-label>
-          <ion-input placeholder="Drinking water..."></ion-input>
+          <ion-input required={true} placeholder="Drinking water..."></ion-input>
         </ion-item>
 
         <ion-item>
@@ -37,13 +60,13 @@ export class NewHabit {
         <color-picker class="ion-padding" target="color"/>
 
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button color="light">
+          <ion-fab-button color="light" onClick={this.createNewHabit.bind(this)}>
             <ion-icon name="checkmark-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>
 
         <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-          <ion-fab-button color="light" onClick={()=> this.viewHome()}>
+          <ion-fab-button color="light" onClick={this.viewHome.bind(this)}>
             <ion-icon name="close-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>

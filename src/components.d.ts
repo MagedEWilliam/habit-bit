@@ -13,16 +13,20 @@ export namespace Components {
     interface AppRoot {
     }
     interface CheckIn {
+        "habitId": any;
     }
     interface ColorPicker {
         "target": any;
     }
     interface EditHabit {
+        "habitId": any;
     }
     interface NewHabit {
     }
     interface YearCalendar {
-        "date": string;
+        "displayDate": string;
+        "getCurrentHabitColor": string;
+        "habitId": string;
     }
 }
 declare global {
@@ -93,17 +97,20 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface CheckIn {
+        "habitId"?: any;
     }
     interface ColorPicker {
         "target"?: any;
     }
     interface EditHabit {
+        "habitId"?: any;
     }
     interface NewHabit {
     }
     interface YearCalendar {
-        "date"?: string;
-        "onCalendarSelected"?: (event: CustomEvent<any>) => void;
+        "displayDate"?: string;
+        "getCurrentHabitColor"?: string;
+        "habitId"?: string;
     }
     interface IntrinsicElements {
         "about-page": AboutPage;

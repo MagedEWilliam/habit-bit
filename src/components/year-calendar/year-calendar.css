@@ -28,4 +28,20 @@ year-calendar .day{
 year-calendar .day{
     background: #CECECE;
     color: #fff;
+    transition: background 200ms;
+}
+year-calendar .day.highlighted{
+    background: red;
+}
+year-calendar .day.selected{
+    animation: activeSelection 300ms 10ms  alternate infinite ease-in-out;
+}
+
+@keyframes activeSelection{
+    from{
+        box-shadow: inset 0 0 0px 2px white;
+    }
+    to{
+        box-shadow: inset 0 0 0px 0px transparent;
+    }
 }
