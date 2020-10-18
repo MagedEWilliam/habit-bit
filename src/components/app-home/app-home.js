@@ -28,7 +28,6 @@ export class AppHome {
       if (e.target.value.indexOf('/delete-habit/') >= 0) {
         this.presentAlertConfirm(e.target.value.replace('/delete-habit/', ''))
       } else {
-        console.log(e.target.value)
         this.router.push(e.target.value)
       }
     }
@@ -62,6 +61,10 @@ export class AppHome {
     await alert.present();
   }
 
+  goToCheck(e){
+    this.router.push(e.target.getAttribute('value'))
+  }
+
   _habits() {
     return state.habits.map(_ => {
       let dailyCount = 0;
@@ -71,8 +74,8 @@ export class AppHome {
         <ion-reorder color={_.color}>
           <ion-item>
             <ion-badge slot="start" color="primary">{dailyCount}</ion-badge>
-            <ion-label>
-              {_.name}
+            <ion-label value={`/check-in/${_.id}`} onClick={this.goToCheck.bind(this)}>
+              <span value={`/check-in/${_.id}`} onClick={this.goToCheck.bind(this)}>{_.name}</span>
             </ion-label>
             <ion-select slot="end" interface="popover" onIonChange={this.optionChanged.bind(this)}>
               <ion-select-option value={`/check-in/${_.id}`}>View</ion-select-option>
@@ -86,23 +89,24 @@ export class AppHome {
   }
 
   componentDidRender() {
+
     document.querySelectorAll('ion-reorder').forEach(reorder => {
+      reorder.querySelector('ion-select').shadowRoot.querySelector('button').style.width = '100px'
+      reorder.querySelector('ion-select').shadowRoot.querySelector('button').style.right = '0'
+      reorder.querySelector('ion-select').shadowRoot.querySelector('button').style.left = 'unset'
       reorder.querySelector('ion-badge').style.background = reorder.getAttribute('color');
     })
+  }
 
-    function handleInput(event) {
-      const query = event.target.value.toLowerCase();
-      requestAnimationFrame(() => {
-        items.forEach(item => {
-          const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
-          item.style.display = shouldShow ? 'block' : 'none';
-        });
-      });
-    }
-
-    const searchbar = document.querySelector('ion-searchbar');
+  handleInput(event) {
     const items = Array.from(document.querySelector('ion-reorder').children);
-    searchbar.addEventListener('ionInput', handleInput);
+    const query = event.target.value.toLowerCase();
+    requestAnimationFrame(() => {
+      items.forEach(item => {
+        const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
+        item.style.display = shouldShow ? 'block' : 'none';
+      });
+    });
   }
 
   render() {
@@ -118,14 +122,14 @@ export class AppHome {
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-searchbar></ion-searchbar>
+          <ion-searchbar onIonInput={this.handleInput.bind(this)} debounce={300} animated={true}></ion-searchbar>
         </ion-toolbar>
       </ion-header>,
 
       <ion-content>
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button href="/check-in/" class="fab-with-label" color="warning">
-            <p class="ion-padding-end">Check in</p>
+        <ion-fab value={`/check-in/${state.habits[0].id}`} onClick={this.goToCheck.bind(this)} vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button value={`/check-in/${state.habits[0].id}`} onClick={this.goToCheck.bind(this)} class="fab-with-label" color="warning">
+            <p value={`/check-in/${state.habits[0].id}`} onClick={this.goToCheck.bind(this)} class="ion-padding-end">Check in</p>
             <ion-icon name="caret-forward-circle-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>

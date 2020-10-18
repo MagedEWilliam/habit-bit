@@ -51,8 +51,6 @@ export class EditHabit {
         <ion-toolbar>
         </ion-toolbar>
         <ion-toolbar>
-        </ion-toolbar>
-        <ion-toolbar>
           <ion-title size="large">Edit habits</ion-title>
         </ion-toolbar>
       </ion-header>,

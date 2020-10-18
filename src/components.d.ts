@@ -13,7 +13,10 @@ export namespace Components {
     interface AppRoot {
     }
     interface CheckIn {
+        "getCurrentHabit": { order: number; name: string; id: string; color: string; };
         "habitId": any;
+        "router": HTMLIonRouterElement;
+        "zoom": boolean;
     }
     interface ColorPicker {
         "target": any;
@@ -21,12 +24,16 @@ export namespace Components {
     interface EditHabit {
         "habitId": any;
     }
+    interface HabitBit {
+    }
     interface NewHabit {
     }
     interface YearCalendar {
         "displayDate": string;
         "getCurrentHabitColor": string;
         "habitId": string;
+        "selectedDate": any;
+        "zoom": boolean;
     }
 }
 declare global {
@@ -66,6 +73,12 @@ declare global {
         prototype: HTMLEditHabitElement;
         new (): HTMLEditHabitElement;
     };
+    interface HTMLHabitBitElement extends Components.HabitBit, HTMLStencilElement {
+    }
+    var HTMLHabitBitElement: {
+        prototype: HTMLHabitBitElement;
+        new (): HTMLHabitBitElement;
+    };
     interface HTMLNewHabitElement extends Components.NewHabit, HTMLStencilElement {
     }
     var HTMLNewHabitElement: {
@@ -85,6 +98,7 @@ declare global {
         "check-in": HTMLCheckInElement;
         "color-picker": HTMLColorPickerElement;
         "edit-habit": HTMLEditHabitElement;
+        "habit-bit": HTMLHabitBitElement;
         "new-habit": HTMLNewHabitElement;
         "year-calendar": HTMLYearCalendarElement;
     }
@@ -97,7 +111,10 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface CheckIn {
+        "getCurrentHabit"?: { order: number; name: string; id: string; color: string; };
         "habitId"?: any;
+        "router"?: HTMLIonRouterElement;
+        "zoom"?: boolean;
     }
     interface ColorPicker {
         "target"?: any;
@@ -105,12 +122,16 @@ declare namespace LocalJSX {
     interface EditHabit {
         "habitId"?: any;
     }
+    interface HabitBit {
+    }
     interface NewHabit {
     }
     interface YearCalendar {
         "displayDate"?: string;
         "getCurrentHabitColor"?: string;
         "habitId"?: string;
+        "selectedDate"?: any;
+        "zoom"?: boolean;
     }
     interface IntrinsicElements {
         "about-page": AboutPage;
@@ -119,6 +140,7 @@ declare namespace LocalJSX {
         "check-in": CheckIn;
         "color-picker": ColorPicker;
         "edit-habit": EditHabit;
+        "habit-bit": HabitBit;
         "new-habit": NewHabit;
         "year-calendar": YearCalendar;
     }
@@ -133,6 +155,7 @@ declare module "@stencil/core" {
             "check-in": LocalJSX.CheckIn & JSXBase.HTMLAttributes<HTMLCheckInElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "edit-habit": LocalJSX.EditHabit & JSXBase.HTMLAttributes<HTMLEditHabitElement>;
+            "habit-bit": LocalJSX.HabitBit & JSXBase.HTMLAttributes<HTMLHabitBitElement>;
             "new-habit": LocalJSX.NewHabit & JSXBase.HTMLAttributes<HTMLNewHabitElement>;
             "year-calendar": LocalJSX.YearCalendar & JSXBase.HTMLAttributes<HTMLYearCalendarElement>;
         }

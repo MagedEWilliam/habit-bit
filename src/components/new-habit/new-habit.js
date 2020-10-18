@@ -41,16 +41,14 @@ export class NewHabit {
         <ion-toolbar>
         </ion-toolbar>
         <ion-toolbar>
-        </ion-toolbar>
-        <ion-toolbar>
           <ion-title size="large">New habits</ion-title>
         </ion-toolbar>
       </ion-header>,
 
       <ion-content>
         <ion-item>
-          <ion-label>Habit name</ion-label>
-          <ion-input required={true} placeholder="Drinking water..."></ion-input>
+          <ion-label>Did you</ion-label>
+          <ion-input required={true} placeholder='"Drink water" Today?'></ion-input>
         </ion-item>
 
         <ion-item>
