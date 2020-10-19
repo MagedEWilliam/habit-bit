@@ -31,8 +31,6 @@ export namespace Components {
         "displayDate": string;
         "getCurrentHabitColor": string;
         "habitId": string;
-        "selectedDate": any;
-        "zoom": boolean;
     }
 }
 declare global {
@@ -128,8 +126,6 @@ declare namespace LocalJSX {
         "displayDate"?: string;
         "getCurrentHabitColor"?: string;
         "habitId"?: string;
-        "selectedDate"?: any;
-        "zoom"?: boolean;
     }
     interface IntrinsicElements {
         "about-page": AboutPage;

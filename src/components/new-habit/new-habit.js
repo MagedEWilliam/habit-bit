@@ -1,5 +1,6 @@
 import { Component, h, Element } from '@stencil/core';
 import state from '../store/store.js';
+import moment from 'moment';
 import { v4 as uuidv4 } from "uuid";
 
 @Component({
@@ -10,6 +11,7 @@ export class NewHabit {
 
   @Element() page;
   @State() habits;
+  @State() checkinByHabit;
 
   router = document.querySelector('ion-router')
 
@@ -20,14 +22,19 @@ export class NewHabit {
   createNewHabit(){
 
     if(this.page.querySelector('ion-input').value.trim()){
+      const id = uuidv4().toString();
+      const year = moment().format("YYYY");
       // change the state
       state.habits = [ ...state.habits, {
         order: state.habits.length,
         name: this.page.querySelector('ion-input').value.trim(),
-        id: uuidv4().toString(),
+        id: id,
         color: this.page.querySelector('#color').value
       }];
-      console.log(state.habits);
+
+      const empty = {[id]:{[year]: []}};
+      state.checkinByHabit = { ...state.checkinByHabit, ...empty  };
+
       this.router.push('/')
     }else{
       this.page.querySelector('ion-input').setFocus();

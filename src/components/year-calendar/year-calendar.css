@@ -14,7 +14,7 @@ year-calendar .day{
     height: 2.5vh;
     max-width: 25px;
     max-height: 25px;
-    transition: all 300ms ease-in !important;
+    transition: width 300ms ease-in, height 300ms ease-in !important;
 
     font-size: 10px;
     text-align: center;
@@ -23,8 +23,8 @@ year-calendar .day{
     align-items: center;
     color: #CECECE;
 }
-
-year-calendar .day.zoomin{
+year-calendar.zoomin .day{
+    transition: width 300ms ease-in, height 300ms ease-in !important;
     width: 3.5vh;
     height: 3.5vh;
     max-width: 45px;
@@ -32,6 +32,7 @@ year-calendar .day.zoomin{
 }
 
 year-calendar .day{
+    cursor: pointer;
     background: #CECECE;
     color: #fff;
     transition: background 200ms;
