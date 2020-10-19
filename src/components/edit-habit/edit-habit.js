@@ -8,7 +8,6 @@ import state from '../store/store.js';
 export class EditHabit {
 
   @Element() page;
-  @State() habits;
 
   @Prop() habitId;
 

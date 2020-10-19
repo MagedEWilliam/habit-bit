@@ -9,13 +9,11 @@ import state from '../store/store';
 export class CheckIn {
 
   @Element() checkin;
-  @State() checkinByHabit;
   @Prop() habitId;
   @Prop() zoom = false;
-
-  @Prop() router = document.querySelector('ion-router')
-
   @Prop() getCurrentHabit = state.habits.filter(h => h.id.toString() == this.habitId.toString())[0]
+
+  router = document.querySelector('ion-router')
 
   zoomnigin() {
     this.zoom = !this.checkin.querySelector('year-calendar').zoom;
@@ -24,15 +22,39 @@ export class CheckIn {
 
   nextHabit() {
     let next = 0;
-    state.habits.filter((h,index)=>{
-      if(h.id == this.habitId) {
-        if( state.habits[index+1]){
-          next = index+1;
+    state.habits.filter((h, index) => {
+      if (h.id == this.habitId) {
+        if (state.habits[index + 1]) {
+          next = index + 1;
         }
         return h
       }
     })
-    return next;
+
+    const nexturl = "/check-in/" + state.habits[next].id + '/';
+    return (
+      <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button href={nexturl} class="fab-with-label-next" color="warning">
+          Next
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>);
+  }
+
+  loadYearCal() {
+    return (<year-calendar zoom={this.zoom} habitId={this.habitId} getCurrentHabitColor={this.getCurrentHabit.color}></year-calendar>)
+  }
+
+  routeChanged() {
+    if(this.habitId){
+      this.getCurrentHabit = state.habits.filter(h => h.id.toString() == this.habitId.toString())[0]
+    }
+    state.checkinByHabit = { ...state.checkinByHabit }
+    this.zoom = false;
+  }
+
+  componentDidLoad() {
+    this.router.addEventListener('ionRouteDidChange', this.routeChanged)
   }
 
   render() {
@@ -40,7 +62,7 @@ export class CheckIn {
       <ion-content>
         <ion-grid class="ion-no-padding">
           <ion-row>
-            <year-calendar zoom={this.zoom} habitId={this.habitId} getCurrentHabitColor={this.getCurrentHabit.color}></year-calendar>
+            {this.loadYearCal()}
           </ion-row>
 
           <ion-row>
@@ -54,12 +76,7 @@ export class CheckIn {
           </ion-row>
         </ion-grid>
 
-        <ion-fab vertical="bottom" horizontal="center" slot="fixed">
-          <ion-fab-button href={"/check-in/" + state.habits[this.nextHabit()].id} class="fab-with-label" color="warning">
-            Next
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+        {this.nextHabit()}
 
         <ion-fab vertical="bottom" horizontal="start" slot="fixed">
           <ion-fab-button href="/" color="light">
@@ -74,13 +91,17 @@ export class CheckIn {
           </ion-fab-button>
         </ion-fab>
 
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
       </ion-content>,
     ];
+  }
+
+  disconnectedCallback() {
+    this.router.removeEventListener('ionRouteDidChange', this.routeChanged)
   }
 }

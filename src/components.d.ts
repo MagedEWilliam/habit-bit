@@ -15,7 +15,6 @@ export namespace Components {
     interface CheckIn {
         "getCurrentHabit": { order: number; name: string; id: string; color: string; };
         "habitId": any;
-        "router": HTMLIonRouterElement;
         "zoom": boolean;
     }
     interface ColorPicker {
@@ -113,7 +112,6 @@ declare namespace LocalJSX {
     interface CheckIn {
         "getCurrentHabit"?: { order: number; name: string; id: string; color: string; };
         "habitId"?: any;
-        "router"?: HTMLIonRouterElement;
         "zoom"?: boolean;
     }
     interface ColorPicker {

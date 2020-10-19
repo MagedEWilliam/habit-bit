@@ -14,12 +14,12 @@ ion-datetime{
     padding-left: 0px !important;
     padding-right: 0px !important;
 }
-.fab-with-label{
+.fab-with-label-next{
     width: 100px;
     --border-radius: 50px;
     margin-left: -18px;
 }
-.fab-with-label p{
+.fab-with-label-next p{
     --padding-end: 4px;
     padding-inline-end: 4px;
 }

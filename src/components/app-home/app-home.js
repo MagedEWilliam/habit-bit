@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, State } from '@stencil/core';
 import { alertController } from '@ionic/core';
 
 import moment from 'moment';
@@ -10,10 +10,8 @@ import state from '../store/store.js';
 })
 export class AppHome {
 
-  @State() habits
-  @State() checkinByHabit;
-
   router = document.querySelector('ion-router')
+  @State() habits = [...state.habits];
 
   toggleReorder() {
     const reorderGroup = document.getElementById('reorder');
@@ -35,7 +33,7 @@ export class AppHome {
   }
 
   async presentAlertConfirm(ID) {
-    const habitName = state.habits.filter(h=> h.id == ID)[0]
+    const habitName = this.habits.filter(h=> h.id == ID)[0]
     const alert = await alertController.create({
       cssClass: 'my-custom-class',
       header: 'Confirm!',
@@ -51,8 +49,9 @@ export class AppHome {
         }, {
           text: 'Yes',
           handler: () => {
-            state.habits = state.habits.filter(h=> h.id != ID)
-            console.log(state.habits);
+            this.habits = this.habits.filter(h=> h.id != ID)
+            // commit to the state
+            state.habits = this.habits;
           }
         }
       ]
@@ -66,7 +65,7 @@ export class AppHome {
   }
 
   _habits() {
-    return state.habits.map(_ => {
+    return this.habits.map(_ => {
       let dailyCount = 0;
       dailyCount = state.checkinByHabit[_.id.toString()] ? state.checkinByHabit[_.id.toString()][moment().format('YYYY').toString()].length : 0;
 
@@ -109,6 +108,19 @@ export class AppHome {
     });
   }
 
+  checkin(){
+    const checkURL = `/check-in/${state.habits[0].id}`;
+
+    return (
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button href={checkURL} class="fab-with-label" color="warning">
+            <p class="ion-padding-end">Check in</p>
+            <ion-icon name="caret-forward-circle-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+    )
+  }
+
   render() {
     return [
       <ion-header>
@@ -127,12 +139,7 @@ export class AppHome {
       </ion-header>,
 
       <ion-content>
-        <ion-fab value={`/check-in/${state.habits[0].id}`} onClick={this.goToCheck.bind(this)} vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button value={`/check-in/${state.habits[0].id}`} onClick={this.goToCheck.bind(this)} class="fab-with-label" color="warning">
-            <p value={`/check-in/${state.habits[0].id}`} onClick={this.goToCheck.bind(this)} class="ion-padding-end">Check in</p>
-            <ion-icon name="caret-forward-circle-outline"></ion-icon>
-          </ion-fab-button>
-        </ion-fab>
+        {this.checkin()}
 
         <ion-fab horizontal="start" vertical="bottom" slot="fixed">
           <ion-fab-button color="light">
