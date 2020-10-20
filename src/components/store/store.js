@@ -32,15 +32,18 @@ if (typeof localStorage !== 'undefined') {
   }
 }
 
-console.log(checkinByHabit)
-
 const { state, onChange} = createStore({
   habits: [
     ...habits
   ],
   checkinByHabit: {
     ...checkinByHabit
-  }
+  },
+  skipTutorial: false
+});
+
+onChange('skipTutorial', value => {
+  localStorage.setItem('skipTutorial', value);
 });
 
 onChange('habits', value => {

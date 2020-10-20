@@ -12,9 +12,10 @@ export class EditHabit {
   @Prop() habitId;
 
   router = document.querySelector('ion-router')
-
+  gotoFirstHabit = ()=> state.habits.length > 0 ? '/check-in/'+state.habits[0].id : '/tutorial/';
+  
   viewHome(){
-    this.router.push('/')
+    this.router.push(this.gotoFirstHabit())
   }
 
   createNewHabit(){
@@ -28,11 +29,8 @@ export class EditHabit {
       });
 
       state.habits = state.habits.map(h=>h);
-      console.log('updated')
-      console.log(state.habits);
-      this.router.push('/');
+      this.viewHome()
     }else{
-      console.log('wrong')
       this.page.querySelector('ion-input').setFocus();
     }
 

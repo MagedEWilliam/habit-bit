@@ -1,4 +1,5 @@
-import { Component, Prop, Element, h } from '@stencil/core';
+import { Component, Prop, Element, State, h } from '@stencil/core';
+import { alertController } from '@ionic/core';
 import state from '../store/store';
 
 @Component({
@@ -8,6 +9,8 @@ import state from '../store/store';
 export class CheckIn {
 
   @Element() comp;
+
+  @State() habits = () => [...state.habits];
   @Prop() habitId;
   @Prop() zoom = false;
   @Prop() getCurrentHabit = state.habits.filter(h => h.id.toString() == this.habitId.toString())[0]
@@ -29,6 +32,8 @@ export class CheckIn {
   }
 
   nextHabit() {
+
+
     let next = 0;
     state.habits.filter((h, index) => {
       if (h.id == this.habitId) {
@@ -39,7 +44,7 @@ export class CheckIn {
       }
     })
 
-    const nexturl = next >= state.habits.length-1? "/":"/check-in/" + state.habits[next].id + '/';
+    const nexturl = next >= state.habits.length - 1 ? "/" : "/check-in/" + state.habits[next].id + '/';
 
     return (
       <ion-fab vertical="bottom" horizontal="center" slot="fixed">
@@ -78,22 +83,22 @@ export class CheckIn {
   }
 
   addDay(year, date) {
-    if ( this.getDay(year, date) != date ) {
+    if (this.getDay(year, date) != date) {
       state.checkinByHabit[this.habitId][year] = [...state.checkinByHabit[this.habitId][year], date]
     }
 
-    state.checkinByHabit = {...state.checkinByHabit}
+    state.checkinByHabit = { ...state.checkinByHabit }
   }
 
   delDay(year, date) {
-    if ( this.getDay(year, date) == date ) {
-      state.checkinByHabit[this.habitId][year] = state.checkinByHabit[this.habitId][year].filter(y=> y != date)
+    if (this.getDay(year, date) == date) {
+      state.checkinByHabit[this.habitId][year] = state.checkinByHabit[this.habitId][year].filter(y => y != date)
     }
-    state.checkinByHabit = {...state.checkinByHabit}
+    state.checkinByHabit = { ...state.checkinByHabit }
   }
 
   componentDidLoad() {
-    
+
     this.router.addEventListener('ionRouteDidChange', this.routeChanged);
 
     this.comp.querySelectorAll('.day').forEach(element => {
@@ -101,14 +106,14 @@ export class CheckIn {
       const year = element.getAttribute('year');
       const currentDate = `${year}-${element.getAttribute('month')}-${element.getAttribute('day')}`;
 
-      if ( this.getDay(year, currentDate) == currentDate ) {
+      if (this.getDay(year, currentDate) == currentDate) {
         element.classList.add('highlighted');
         element.style.background = this.getCurrentHabit.color;
       }
 
       element.addEventListener('click', e => {
-        if(this.zoom){
-          if ( e.target.classList.contains('highlighted') ) {
+        if (this.zoom) {
+          if (e.target.classList.contains('highlighted')) {
             this.delDay(year, currentDate);
             e.target.classList.remove('highlighted');
             e.target.style.background = '#CECECE';
@@ -120,6 +125,36 @@ export class CheckIn {
         }
       })
     });
+  }
+
+  gotoFirstHabit = () => state.habits.length > 0 ? '/check-in/' + state.habits[0].id : '/tutorial/';
+
+  async presentAlertConfirm() {
+    const habitName = this.habits().filter(h => h.id == this.habitId)[0]
+    const alert = await alertController.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm!',
+      message: `Delete Habit <strong>${habitName ? habitName.name : ''}</strong>!!!`,
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+          }
+        }, {
+          text: 'Yes',
+          handler: () => {
+            this.habits = () => [...state.habits.filter(h => h.id != this.habitId)];
+            // commit to the state
+            state.habits = this.habits();
+            this.router.push(this.gotoFirstHabit())
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   render() {
@@ -141,19 +176,45 @@ export class CheckIn {
           </ion-row>
         </ion-grid>
 
-        {this.nextHabit()}
-
         <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-          <ion-fab-button href="/" color="light">
-            <ion-icon name="home-outline"></ion-icon>
+          <ion-fab-button onClick={this.zoomniginOrout.bind(this)} color="light">
+            {this.zoom ? <ion-icon name="remove-circle-outline"></ion-icon> :
+              <ion-icon name="add-circle-outline"></ion-icon>}
           </ion-fab-button>
         </ion-fab>
 
-        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button onClick={this.zoomniginOrout.bind(this)} color="light">
-            {this.zoom ? <ion-icon name="search-circle-outline"></ion-icon> :
-              <ion-icon name="search-outline"></ion-icon>}
+        <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+          <ion-fab-button color="light">
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
           </ion-fab-button>
+          <ion-fab-list side="top">
+
+            <ion-fab-button color="light" onClick={this.presentAlertConfirm.bind(this)}>
+              <ion-icon name="trash-bin"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" href={'/edit-habit/' + this.habitId}>
+              <ion-icon name="create"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light" href={'/new-habit/' + this.habitId}>
+              <ion-icon name="add"></ion-icon>
+            </ion-fab-button>
+
+          </ion-fab-list>
+
+          <ion-fab-list side="start">
+
+            <ion-fab-button color="light">
+              <ion-icon name="share-social"></ion-icon>
+            </ion-fab-button>
+
+            <ion-fab-button color="light">
+              <ion-icon name="download"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="/tutorial/" color="light">
+              <ion-icon name="help-circle-outline"></ion-icon>
+            </ion-fab-button>
+
+          </ion-fab-list>
         </ion-fab>
 
         <br />

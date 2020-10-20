@@ -6,11 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface AboutPage {
-    }
-    interface AppHome {
-    }
     interface AppRoot {
+    }
+    interface AppTabs {
+    }
+    interface AppTut {
     }
     interface CheckIn {
         "getCurrentHabit": { order: number; name: string; id: string; color: string; };
@@ -34,23 +34,23 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLAboutPageElement extends Components.AboutPage, HTMLStencilElement {
-    }
-    var HTMLAboutPageElement: {
-        prototype: HTMLAboutPageElement;
-        new (): HTMLAboutPageElement;
-    };
-    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
-    }
-    var HTMLAppHomeElement: {
-        prototype: HTMLAppHomeElement;
-        new (): HTMLAppHomeElement;
-    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
+    };
+    interface HTMLAppTabsElement extends Components.AppTabs, HTMLStencilElement {
+    }
+    var HTMLAppTabsElement: {
+        prototype: HTMLAppTabsElement;
+        new (): HTMLAppTabsElement;
+    };
+    interface HTMLAppTutElement extends Components.AppTut, HTMLStencilElement {
+    }
+    var HTMLAppTutElement: {
+        prototype: HTMLAppTutElement;
+        new (): HTMLAppTutElement;
     };
     interface HTMLCheckInElement extends Components.CheckIn, HTMLStencilElement {
     }
@@ -89,9 +89,9 @@ declare global {
         new (): HTMLYearCalendarElement;
     };
     interface HTMLElementTagNameMap {
-        "about-page": HTMLAboutPageElement;
-        "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
+        "app-tabs": HTMLAppTabsElement;
+        "app-tut": HTMLAppTutElement;
         "check-in": HTMLCheckInElement;
         "color-picker": HTMLColorPickerElement;
         "edit-habit": HTMLEditHabitElement;
@@ -101,11 +101,11 @@ declare global {
     }
 }
 declare namespace LocalJSX {
-    interface AboutPage {
-    }
-    interface AppHome {
-    }
     interface AppRoot {
+    }
+    interface AppTabs {
+    }
+    interface AppTut {
     }
     interface CheckIn {
         "getCurrentHabit"?: { order: number; name: string; id: string; color: string; };
@@ -128,9 +128,9 @@ declare namespace LocalJSX {
         "habitId"?: string;
     }
     interface IntrinsicElements {
-        "about-page": AboutPage;
-        "app-home": AppHome;
         "app-root": AppRoot;
+        "app-tabs": AppTabs;
+        "app-tut": AppTut;
         "check-in": CheckIn;
         "color-picker": ColorPicker;
         "edit-habit": EditHabit;
@@ -143,9 +143,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "about-page": LocalJSX.AboutPage & JSXBase.HTMLAttributes<HTMLAboutPageElement>;
-            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-tabs": LocalJSX.AppTabs & JSXBase.HTMLAttributes<HTMLAppTabsElement>;
+            "app-tut": LocalJSX.AppTut & JSXBase.HTMLAttributes<HTMLAppTutElement>;
             "check-in": LocalJSX.CheckIn & JSXBase.HTMLAttributes<HTMLCheckInElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
             "edit-habit": LocalJSX.EditHabit & JSXBase.HTMLAttributes<HTMLEditHabitElement>;

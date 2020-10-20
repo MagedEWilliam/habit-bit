@@ -1,6 +1,5 @@
 import { Component, Event, Element, Watch, State,Prop, h } from "@stencil/core";
 import moment from 'moment';
-import state from '../store/store.js';
 
 @Component({
   tag: 'year-calendar',
@@ -11,9 +10,6 @@ export class YearCalendar {
   @Prop() habitId = '0';
   @Prop() displayDate = moment().format("YYYY-MM-DDTHH:mm:ssTZD");
   @Prop() getCurrentHabitColor = '#000';
-
-  // @State() checkinByHabit = ()=> state.checkinByHabit;
-  // @State() invertHex = (hex) => '#' + (Number(`0x1${hex.replace('#', '')}`) ^ 0xFFFFFF).toString(16).substr(1).toUpperCase();
   
   @Element() yearCal;
 
@@ -31,8 +27,6 @@ export class YearCalendar {
     let yearData = [];
 
     for (let month = 1; month <= 12; month++) {
-
-      console.log('here we go again');
 
       let monthData = [<div class="month-title">{monthNames[month - 1]}</div>];
 

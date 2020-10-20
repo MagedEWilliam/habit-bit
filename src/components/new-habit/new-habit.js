@@ -1,4 +1,4 @@
-import { Component, h, Element } from '@stencil/core';
+import { Component, h, Element, Prop } from '@stencil/core';
 import state from '../store/store.js';
 import moment from 'moment';
 import { v4 as uuidv4 } from "uuid";
@@ -14,9 +14,10 @@ export class NewHabit {
   @State() checkinByHabit;
 
   router = document.querySelector('ion-router')
-
+  gotoFirstHabit = ()=> state.habits.length > 0 ? '/check-in/'+state.habits[0].id : '/tutorial/';
+  
   viewHome(){
-    this.router.push('/')
+    this.router.push(this.gotoFirstHabit())
   }
 
   createNewHabit(){
@@ -35,7 +36,7 @@ export class NewHabit {
       const empty = {[id]:{[year]: []}};
       state.checkinByHabit = { ...state.checkinByHabit, ...empty  };
 
-      this.router.push('/')
+      this.viewHome()
     }else{
       this.page.querySelector('ion-input').setFocus();
     }
