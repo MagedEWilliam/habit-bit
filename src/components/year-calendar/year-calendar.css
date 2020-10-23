@@ -8,39 +8,36 @@ year-calendar .year{
 
 }
 
-year-calendar .month-title,
-year-calendar .day{
-    width: 2.5vh;
-    height: 2.5vh;
-    max-width: 25px;
-    max-height: 25px;
-    transition: width 300ms ease-in, height 300ms ease-in !important;
-
-    font-size: 10px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #CECECE;
+year-calendar svg{
+    transition: transform 300ms ease-in, height 300ms ease-in-out !important;
 }
-year-calendar.zoomin .day{
-    transition: width 300ms ease-in, height 300ms ease-in !important;
-    width: 3.5vh;
-    height: 3.5vh;
-    max-width: 45px;
-    max-height: 45px;
+year-calendar {
+    height: 700px;
+    /* transform: scale(0.8) translate(0vh, -70px); */
+    transition: transform 300ms ease-in, height 300ms ease-in-out !important;
+
+}
+year-calendar.zoomin{
+    height: 1000px;
+    /* transform: scale(1.2) translate(0vh, 12vh); */
+    transition: transform 300ms ease-in, height 300ms ease-in-out !important;
 }
 
-year-calendar .day{
+year-calendar .day text{
+    font-size: 12px;
     cursor: pointer;
-    background: #CECECE;
+    fill: #fff;
+}
+year-calendar .day rect{
+    cursor: pointer;
+    fill: #CECECE;
     color: #fff;
     transition: background 200ms;
 }
-year-calendar .day.highlighted{
-    background: red;
-}
-year-calendar .day.selected{
+/* year-calendar .day.highlighted{
+    fill: red;
+} */
+year-calendar .day.selected rect{
     animation: activeSelection 300ms 10ms  alternate infinite ease-in-out;
 }
 
@@ -48,9 +45,10 @@ year-calendar .day.selected{
 
 @keyframes activeSelection{
     from{
-        box-shadow: inset 0 0 0px 2px white;
+        stroke-width: 3;
+        stroke: #fff;
     }
     to{
-        box-shadow: inset 0 0 0px 0px transparent;
+        stroke-width: 0;
     }
 }

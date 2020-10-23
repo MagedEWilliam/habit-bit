@@ -23,4 +23,20 @@ ion-datetime{
     --padding-end: 4px;
     padding-inline-end: 4px;
 }
+.realtask{
+    position: fixed;
+    bottom: 15px;
+    top: unset;
+    left: 60px;
+    right: 66px;
+    margin: auto;
+    text-align: center;
+}
 
+ion-content::part(scroll){
+    overflow: scroll !important;
+}
+
+ion-toast{
+    transform: translateY(-128px) !important;
+}

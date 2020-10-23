@@ -1,5 +1,7 @@
 import { Component, Prop, Element, State, h } from '@stencil/core';
-import { alertController } from '@ionic/core';
+import { alertController, toastController } from '@ionic/core';
+import moment from 'moment';
+
 import state from '../store/store';
 
 @Component({
@@ -9,10 +11,10 @@ import state from '../store/store';
 export class CheckIn {
 
   @Element() comp;
-
+  panzoom;
   @State() habits = () => [...state.habits];
   @Prop() habitId;
-  @Prop() zoom = false;
+  @Prop() zoom = true;
   @Prop() getCurrentHabit = state.habits.filter(h => h.id.toString() == this.habitId.toString())[0]
 
   router = document.querySelector('ion-router')
@@ -20,14 +22,28 @@ export class CheckIn {
   zoomniginOrout() {
     this.zoom = !this.zoom;
     if (this.zoom) {
+      this.panzoom.style.transform = 'scale(1.15) translateY(60px)';
+
       this.comp.querySelector('year-calendar').classList.add('zoomin');
+      setTimeout(()=>{
+        this.comp.querySelector('year-calendar .selected').scrollIntoView({behavior: 'smooth', block: "center", inline: "center"});
+      },300)
     } else {
+      this.panzoom.style.transform = 'scale(0.8) translateY(-70px)';
+
+      setTimeout(()=>{
+        this.comp.querySelector('year-calendar svg').scrollIntoView({behavior: 'smooth', block: "center", inline: "center"});
+      },300)
       this.comp.querySelector('year-calendar').classList.remove('zoomin');
     }
   }
 
   zoomnigin() {
     this.zoom = true;
+    this.panzoom.style.transform = 'scale(1.15) translateY(60px)';
+    setTimeout(()=>{
+      this.comp.querySelector('year-calendar .selected').scrollIntoView({behavior: 'smooth', block: "center", inline: "center"});
+    },300)
     this.comp.querySelector('year-calendar').classList.add('zoomin');
   }
 
@@ -66,6 +82,7 @@ export class CheckIn {
   }
 
   routeChanged() {
+    
     if (this.habitId) {
       this.getCurrentHabit = state.habits.filter(h => h.id.toString() == this.habitId.toString())[0]
     }
@@ -97,34 +114,86 @@ export class CheckIn {
     state.checkinByHabit = { ...state.checkinByHabit }
   }
 
-  componentDidLoad() {
+  async presentToastWithOptions(e, fn, msg, wait) {
+    const toast = await toastController.create({
 
-    this.router.addEventListener('ionRouteDidChange', this.routeChanged);
-
-    this.comp.querySelectorAll('.day').forEach(element => {
-
-      const year = element.getAttribute('year');
-      const currentDate = `${year}-${element.getAttribute('month')}-${element.getAttribute('day')}`;
-
-      if (this.getDay(year, currentDate) == currentDate) {
-        element.classList.add('highlighted');
-        element.style.background = this.getCurrentHabit.color;
-      }
-
-      element.addEventListener('click', e => {
-        if (this.zoom) {
-          if (e.target.classList.contains('highlighted')) {
-            this.delDay(year, currentDate);
-            e.target.classList.remove('highlighted');
-            e.target.style.background = '#CECECE';
-          } else {
-            this.addDay(year, currentDate);
-            e.target.classList.add('highlighted');
-            e.target.style.background = this.getCurrentHabit.color;
+      message: msg,
+      position: 'bottom',
+      duration: wait,
+      buttons: [
+        {
+          side: 'start',
+          text: 'Yes',
+          handler: fn
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
           }
         }
-      })
+      ]
     });
+    toast.present()
+  }
+
+  componentDidLoad() {
+
+    document.querySelectorAll('ion-toast').forEach(toast=> toast.dismiss())
+
+    this.panzoom = this.comp.querySelector('year-calendar svg')
+
+    this.router.addEventListener('ionRouteDidChange', this.routeChanged);
+    const today = moment().format('YYYY-M-D');
+
+    this.comp.querySelectorAll('.day').forEach(g => {
+      const rect = g.querySelector('rect');
+
+      const year = g.getAttribute('year');
+      const currentDate = `${year}-${g.getAttribute('month')}-${g.getAttribute('day')}`;
+
+      if (this.getDay(year, currentDate) == currentDate) {
+        g.classList.add('highlighted');
+        rect.style.fill = this.getCurrentHabit.color;
+      }
+
+      const markTheDay = e => {
+        if (this.zoom) {
+          if (g.classList.contains('highlighted')) {
+            this.delDay(year, currentDate);
+            g.classList.remove('highlighted');
+            rect.style.fill = '#CECECE';
+          } else {
+            this.addDay(year, currentDate);
+            g.classList.add('highlighted');
+            rect.style.fill = this.getCurrentHabit.color;
+          }
+        }
+      }
+
+      const uSureMarkTheDay = (e, msg, wait) => {
+        if (this.zoom) {
+          this.presentToastWithOptions(e, markTheDay.bind(this), msg, wait);
+        }
+      }
+      
+      if (currentDate == today) {
+        g.classList.add('selected');
+        g.addEventListener('click', markTheDay)
+        if(!g.classList.contains('highlighted')){
+          uSureMarkTheDay(g, 'Mark today?', 5000)
+        }
+      }else{
+        g.addEventListener('click', (ev)=>uSureMarkTheDay(ev, 'You sure to mark '+currentDate+'?', 2500))
+      }
+
+    });
+
+    this.panzoom.style.transform = 'scale(1.15) translateY(60px)';
+    setTimeout(()=>{
+      this.comp.querySelector('year-calendar .selected').scrollIntoView({behavior: 'smooth', block: "center", inline: "center"});
+    },500)
+    this.comp.querySelector('year-calendar').classList.add('zoomin');
   }
 
   gotoFirstHabit = () => state.habits.length > 0 ? '/check-in/' + state.habits[0].id : '/tutorial/';
@@ -163,21 +232,17 @@ export class CheckIn {
         <ion-grid class="ion-no-padding">
           <ion-row>
             {this.loadYearCal()}
+            <br/>
+            <br/>
+            <br/>
+            <br/>
           </ion-row>
 
-          <ion-row>
-            <ion-col size="1">
-            </ion-col>
-            <ion-col class="ion-text-center">
-              <p>Did you <b>{this.getCurrentHabit.name}</b> today?</p>
-            </ion-col>
-            <ion-col size="1">
-            </ion-col>
-          </ion-row>
         </ion-grid>
 
+
         <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-          <ion-fab-button onClick={this.zoomniginOrout.bind(this)} color="light">
+          <ion-fab-button size="small" onClick={this.zoomniginOrout.bind(this)} color="light">
             {this.zoom ? <ion-icon name="remove-circle-outline"></ion-icon> :
               <ion-icon name="add-circle-outline"></ion-icon>}
           </ion-fab-button>
@@ -216,13 +281,12 @@ export class CheckIn {
 
           </ion-fab-list>
         </ion-fab>
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 
       </ion-content>,
     ];
@@ -230,5 +294,6 @@ export class CheckIn {
 
   disconnectedCallback() {
     this.router.removeEventListener('ionRouteDidChange', this.routeChanged)
+    
   }
 }

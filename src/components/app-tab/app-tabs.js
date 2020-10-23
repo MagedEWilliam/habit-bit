@@ -54,6 +54,7 @@ export class AppTabs {
       t.classList.remove('__active__');
       if(t.href == window.location.pathname){
         t.classList.add('__active__');
+        t.scrollIntoView({behavior: "smooth", block: "center", inline: "center"})
       }
     }) 
   }
@@ -61,10 +62,6 @@ export class AppTabs {
   componentDidLoad() {
     this.router.addEventListener('ionRouteDidChange', this.routeChanged);
   }
-
-  // disconnectedCallback() {
-  //   this.router.removeEventListener('ionRouteDidChange', this.routeChanged)
-  // }
 
   render() {
     return [
