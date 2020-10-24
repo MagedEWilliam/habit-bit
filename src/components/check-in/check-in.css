@@ -40,3 +40,7 @@ ion-content::part(scroll){
 ion-toast{
     transform: translateY(-128px) !important;
 }
+
+.opacity-0{
+    opacity: 0;
+}
