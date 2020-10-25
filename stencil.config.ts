@@ -9,8 +9,8 @@ export const config: Config = {
   outputTargets: [{
     type: 'www',
     serviceWorker: {
-      globPatterns: ['**/*.{js,css,json,html,ico}'],
-      skipWaiting: true
+      swSrc: 'src/sw-base.js',
+      globPatterns: ['**/*.{js,css,json,html,ico,svg,png}']
     }
   }],
 };
