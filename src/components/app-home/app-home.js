@@ -10,13 +10,13 @@ import state from '../store/store';
 export class AppHome {
   @Element() comp;
 
-  @State() suggest = () => false;
+  @State() suggest = () => true;
   @State() zoom = () => false;
   @State() year = () => moment().format('YYYY');
   @State() date = year => moment(year).format('YYYY-MM-DDTHH:mm:0ss.DZ');
   @State() habitsTabs = () =>
     state.habits.map(habit => (
-      <ion-tab-button habitColor={habit.color} habitid={habit.id} onClick={e => this.updateCalendar(e)} tab="tab-speaker" style={{ color: habit.color }}>
+      <ion-tab-button habitColor={habit.color} habitid={habit.id} onClick={e => this.handleHabitTabChange(e)} tab="tab-speaker" style={{ color: habit.color }}>
         <ion-icon habitColor={habit.color} habitid={habit.id} name="radio-button-on-outline"></ion-icon>
         <ion-label habitColor={habit.color} habitid={habit.id}>
           {habit.name}
@@ -30,11 +30,35 @@ export class AppHome {
     return '#' + (Number(`0x1${hex.replace('#', '')}`) ^ 0xffffff).toString(16).substr(1).toUpperCase();
   }
 
+  handleHabitTabChange(e) {
+    this.updateCalendar(e);
+    const parms = new URLSearchParams(window.location.search);
+      console.log(parms.get('habitid'))
+
+      parms.set('habitid', this._habitid);
+      window.history.pushState({}, '', window.location.origin + '?' + parms);
+    
+
+    this.shouldSuggest();
+  }
+
   updateCalendar(e) {
     const habitid = e.target.getAttribute('habitid');
     const habitColor = e.target.getAttribute('habitColor');
     this._habitid = habitid;
 
+    const root = document.querySelector(':root');
+    root.style.setProperty('--highlighted-color', habitColor);
+    root.style.setProperty('--highlighted-text-color', this.invertHex(habitColor));
+
+    if (this._habitid) {
+      this.updateYearHiglight(this._habitid);
+
+      e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+    }
+  }
+
+  updateYearHiglight(habitid) {
     const year = this.year();
 
     if (this.comp.querySelectorAll('year-calendar .highlighted').length > 0) {
@@ -42,10 +66,6 @@ export class AppHome {
         element.classList.remove('highlighted');
       });
     }
-
-    const root = document.querySelector(':root');
-    root.style.setProperty('--highlighted-color', habitColor);
-    root.style.setProperty('--highlighted-text-color', this.invertHex(habitColor));
 
     if (state.checkinByHabit.hasOwnProperty(habitid)) {
       if (state.checkinByHabit[habitid].hasOwnProperty(year)) {
@@ -56,6 +76,9 @@ export class AppHome {
         });
       }
     }
+  }
+
+  shouldSuggest() {
     if (this.comp.querySelector(`year-calendar .selected`)) {
       if (this.comp.querySelector(`year-calendar .selected`).classList.contains('highlighted')) {
         this.toggleSuggest(false);
@@ -63,7 +86,6 @@ export class AppHome {
         this.toggleSuggest(true);
       }
     }
-    e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
   }
 
   changeYear(e) {
@@ -133,8 +155,6 @@ export class AppHome {
   }
 
   async changeDay(day) {
-    console.log(day, this.year(), this._habitid);
-
     if (day == this.comp.querySelector('year-calendar .selected').getAttribute('date')) {
       this.changeDayData(day, this.year(), this._habitid);
     } else {
@@ -159,13 +179,29 @@ export class AppHome {
   }
 
   componentDidRender() {
-    if (!this._habitid) {
-      this.comp.querySelector('ion-tab-button').click();
+    if (this._habitid) {
+      this.updateYearHiglight(this._habitid);
     }
+
     const currentDay = moment().format('YYYY-M-D');
     if (this.comp.querySelector(`year-calendar .date-${currentDay}`) != null) {
       this.comp.querySelector(`year-calendar .date-${currentDay}`).classList.add('selected');
     }
+  }
+
+  componentDidLoad() {
+  
+
+    const parms = new URLSearchParams(window.location.search);
+    
+    console.log(parms.has('habitid'))
+    if (parms.has('habitid')) {
+      this.comp.querySelector(`ion-tab-button[habitid="${parms.get('habitid')}"]`).click();
+    }else{
+      console.log('load first one')
+      this.comp.querySelector(`ion-tab-button`).click();
+    }
+
 
     setTimeout(
       () => {
@@ -190,7 +226,7 @@ export class AppHome {
             <div class={{ show: this.suggest(), hide: !this.suggest(), suggest: true }}>
               <ion-chip color="dark">
                 <ion-label onClick={() => this.changeDay(this.comp.querySelector('year-calendar .selected').getAttribute('date'))}>Mark today?</ion-label>
-                <ion-icon onClick={() => this.toggleSuggest.bind(false)} name="close-circle"></ion-icon>
+                <ion-icon onClick={ev => this.toggleSuggest(false)} name="close-circle"></ion-icon>
               </ion-chip>
             </div>
           </ion-row>
