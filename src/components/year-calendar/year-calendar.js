@@ -8,14 +8,14 @@ import moment from 'moment';
 })
 export class YearCalendar {
 
-  @Prop() habitId = '0';
   @Prop() displayDate = moment().format("YYYY-MM-DDTHH:mm:ssTZD");
-  @Prop() getCurrentHabitColor = '#000';
+  @Prop() zoom = false;
+  @Prop() change = ()=>{};
   
   @Element() comp;
 
   router = document.querySelector('ion-router')
-  getCurrentYear = moment(this.displayDate, "YYYY-MM-DDTHH:mm:ssTZD").format('YYYY');
+  @State() getCurrentYear = ()=> moment(this.displayDate, "YYYY-MM-DDTHH:mm:ssTZD").format('YYYY');
 
   renderYear() {
 
@@ -26,21 +26,24 @@ export class YearCalendar {
     }
 
     let yearData = [];
+    const year = this.getCurrentYear();
 
     for (let month = 1; month <= 12; month++) {
 
       let monthData = [<text font-size="12" class="month-title" y="15" x={(25*(month-1))+(month*2.1)} fill="#CECECE">{monthNames[month - 1]}</text>];
 
-      const monthDays = getDaysInMonth(this.getCurrentYear, month);
+
+      const monthDays = getDaysInMonth(year, month);
 
       for (let day = 1; day <= monthDays; day++) {
         monthData.push(
             <g 
+              onClick={()=> this.change(`${year}-${month}-${day}`)}
               width="25" 
               height="25" 
               y={25*day} 
               x={(25*(month-1))+(month*2)} 
-              class={`day date-${this.getCurrentYear}-${month}-${day}`} year={this.getCurrentYear} month={month} day={day}>
+              class={`day date-${year}-${month}-${day}`} date={`${year}-${month}-${day}`} year={year} month={month} day={day}>
               <rect 
                 width="25" 
                 height="25" 
@@ -58,10 +61,22 @@ export class YearCalendar {
 
     return yearData;
   }
-
+  
+  componentDidRender() {
+    if(this.zoom){
+      this.comp.classList.add('zoom-in')
+      if(this.comp.querySelector('.selected')){
+        setTimeout(()=>{
+          this.comp.querySelector('.selected').scrollIntoView({behavior: "smooth", block: "center", inline: "center"})
+        }, 300, this)
+      }
+    }else{
+      this.comp.classList.remove('zoom-in')
+    }
+  }
+  
   componentDidLoad() {
     this.router.addEventListener('ionRouteDidChange', this.routeChanged)
-    
   }
 
   render() {

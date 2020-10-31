@@ -9,18 +9,20 @@ year-calendar .year{
 }
 
 year-calendar svg{
-    transition: transform 300ms ease-in, height 300ms ease-in-out !important;
+    margin-bottom: 100px;
+    /* transition: transform 300ms ease-in, height 300ms ease-in-out !important; */
 }
 year-calendar {
-    height: 700px;
-    /* transform: scale(0.8) translate(0vh, -70px); */
-    transition: transform 300ms ease-in, height 300ms ease-in-out !important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    transform: scale(0.8);
+    transition: padding 300ms ease-in-out, transform 300ms ease-in !important;
 
 }
-year-calendar.zoomin{
-    height: 1000px;
-    /* transform: scale(1.2) translate(0vh, 12vh); */
-    transition: transform 300ms ease-in, height 300ms ease-in-out !important;
+year-calendar.zoom-in{
+    transform: scale(1.5) translate(0vh, 160px);
 }
 
 year-calendar .day text{
@@ -30,13 +32,17 @@ year-calendar .day text{
 }
 year-calendar .day rect{
     cursor: pointer;
-    fill: #CECECE;
+    fill: #444444;
     color: #fff;
-    transition: background 200ms;
+    transition: fill 200ms;
 }
-/* year-calendar .day.highlighted{
-    fill: red;
-} */
+
+year-calendar .day.highlighted text{
+    fill: var(--highlighted-text-color);
+}
+year-calendar .day.highlighted rect{
+    fill: var(--highlighted-color);
+}
 year-calendar .day.selected rect{
     animation: activeSelection 300ms 10ms  alternate infinite ease-in-out;
 }

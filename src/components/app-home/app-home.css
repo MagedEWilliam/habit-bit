@@ -1,0 +1,80 @@
+:root{
+    --highlighted-color: #000;
+    --highlighted-text-color: #fff;
+}
+
+main{
+    overflow: hidden;
+}
+.hideme{
+    visibility: hidden;
+    display: none;
+}
+
+.fab-horizontal-start.fab-vertical-bottom{
+    bottom: 80px;
+}
+
+.tab{
+    border-top: 0.55px solid var(--ion-tab-bar-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.2))));
+    position: fixed;
+    bottom: 0px;
+    top: unset;
+    left: 0px;
+    right: unset;
+    width: calc(100% - 56px);
+    background: var(--ion-tab-bar-background, var(--ion-background-color, #fff));
+    height: 64px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.tab-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+ion-tab-button{
+    min-width: 128px;
+    transition: filter 300ms;   
+}
+
+.more-options {
+    bottom: 0px !important;
+    right: 0px !important;
+}
+.more-options > ion-fab-button{
+    --border-radius: 0px;
+    height: 64px;
+}
+
+.suggest{
+    position: fixed;
+    bottom: 85px;
+    left: 0px;
+    right: 0px;
+    top: unset;
+    margin: auto;
+    text-align: center;
+}
+.suggest ion-chip{
+    background: #222428;
+    opacity: 1;
+    visibility: visible;
+    transition: background 300ms, bottom 300ms, opacity 300ms, visibility 300ms;
+}
+
+.suggest.hide ion-chip{
+    bottom: -10vh;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.suggest ion-chip.ion-activated{
+    background: rgba(0,0,0,0.8);
+}

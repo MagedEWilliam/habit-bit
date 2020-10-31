@@ -6,6 +6,8 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AppHome {
+    }
     interface AppRoot {
     }
     interface AppTabs {
@@ -28,12 +30,18 @@ export namespace Components {
     interface NewHabit {
     }
     interface YearCalendar {
+        "change": () => void;
         "displayDate": string;
-        "getCurrentHabitColor": string;
-        "habitId": string;
+        "zoom": boolean;
     }
 }
 declare global {
+    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
+    }
+    var HTMLAppHomeElement: {
+        prototype: HTMLAppHomeElement;
+        new (): HTMLAppHomeElement;
+    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
@@ -89,6 +97,7 @@ declare global {
         new (): HTMLYearCalendarElement;
     };
     interface HTMLElementTagNameMap {
+        "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
         "app-tabs": HTMLAppTabsElement;
         "app-tut": HTMLAppTutElement;
@@ -101,6 +110,8 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface AppHome {
+    }
     interface AppRoot {
     }
     interface AppTabs {
@@ -123,11 +134,12 @@ declare namespace LocalJSX {
     interface NewHabit {
     }
     interface YearCalendar {
+        "change"?: () => void;
         "displayDate"?: string;
-        "getCurrentHabitColor"?: string;
-        "habitId"?: string;
+        "zoom"?: boolean;
     }
     interface IntrinsicElements {
+        "app-home": AppHome;
         "app-root": AppRoot;
         "app-tabs": AppTabs;
         "app-tut": AppTut;
@@ -143,6 +155,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-tabs": LocalJSX.AppTabs & JSXBase.HTMLAttributes<HTMLAppTabsElement>;
             "app-tut": LocalJSX.AppTut & JSXBase.HTMLAttributes<HTMLAppTutElement>;

@@ -14,12 +14,9 @@ export class AppRoot {
       <ion-app>
         <ion-router useHash={false}>
 
-          <ion-route-redirect from="/" to={this.gotoFirstHabit()} />
-
-          <ion-route url="/" component={this.gotoFirstHabit()}/>
+          <ion-route url="/" component="app-home"/>
           <ion-route url="/new-habit/" component="new-habit" />
           <ion-route url="/edit-habit/:habitId" component="edit-habit" />
-          <ion-route url="/check-in/:habitId" component="check-in" />
           <ion-route url="/tutorial/" component="app-tut" />
 
           <ion-route component="app-tabs">
