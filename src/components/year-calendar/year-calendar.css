@@ -7,6 +7,13 @@ year-calendar {
     justify-content: center;
     width: 100vw;
     margin-bottom: 150px;
+
+    -webkit-touch-callout: none;
+      -webkit-user-select: none;
+       -khtml-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
 }
 year-calendar .year{
     display: flex;
@@ -38,13 +45,14 @@ year-calendar .day p{
     right: 0px;
     bottom: 0px;
     margin: auto;
+    opacity: 0.7;
     height: 10px;
     text-shadow: 1px 1px 0px rgba(0,0,0,0.25), -1px -1px 0px rgba(255, 255, 255, 0.25);
 }
 
 year-calendar .day.selected{
     color: var(--highlighted-text-color);
-    animation: selected 500ms infinite;
+    animation: selected 1s alternate infinite;
 }
 
 @keyframes selected{
@@ -52,12 +60,12 @@ year-calendar .day.selected{
         box-shadow: inset 0px 0px 0px 4px transparent;
     }
     to{
-        box-shadow: inset 0px 0px 0px 4px var(--highlighted-text-color);
+        box-shadow: inset 0px 0px 0px 2px var(--highlighted-text-color);
     }
 }
 
 year-calendar .day.selected.highlighted{
-    box-shadow: inset 0px 0px 0px 4px var(--highlighted-text-color);
+    box-shadow: inset 0px 0px 0px 2px var(--highlighted-text-color), 0 0 14px 1px var(--highlighted-color);;
     animation: unset
 }
 year-calendar .day.highlighted{

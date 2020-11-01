@@ -97,7 +97,8 @@ export class EditHabit {
       daysInMonth.push( getDaysInMonth(year, month) );
     }
 
-    let theYear = ''; 
+    let theYear = 'my name is jeff,,,,,,,,,,,\n';
+    theYear += ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"].join(', ')
     for( let day = 1; day <= 31; day ++){
       let monthRow = ''
       for( let month = 1; month <= 12; month ++){

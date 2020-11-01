@@ -192,27 +192,7 @@ export class AppHome {
   }
 
   async changeDay(day) {
-    if (day == this.comp.querySelector('year-calendar .selected').getAttribute('date')) {
-      this.changeDayData(day, this.year(), this._habitid());
-    } else {
-      const toast = await toastController.create({
-        message: 'Change the day?',
-        position: 'bottom',
-        duration: 2000,
-        buttons: [
-          {
-            side: 'start',
-            text: 'Yes',
-            handler: () => this.changeDayData(day, this.year(), this._habitid()),
-          },
-          {
-            text: 'Cancel',
-            role: 'cancel',
-          },
-        ],
-      });
-      toast.present();
-    }
+    this.changeDayData(day, this.year(), this._habitid());
   }
   
   componentDidRender() {
@@ -305,9 +285,9 @@ export class AppHome {
 
         <ion-fab vertical="bottom" horizontal="start" slot="fixed" class="side-options">
 
-          <ion-fab-button size="small" onClick={() => this.openCalendarDialog()} color="light">
+          {/* <ion-fab-button size="small" onClick={() => this.openCalendarDialog()} color="light">
             <ion-icon name="calendar-outline"></ion-icon>
-          </ion-fab-button>
+          </ion-fab-button> */}
 
           <ion-fab-button size="small" id="zoom" onClick={this.zoomniginOrout.bind(this)} color="light">
             {!this.zoom() ? <ion-icon name="remove-circle-outline"></ion-icon> : <ion-icon name="add-circle-outline"></ion-icon>}

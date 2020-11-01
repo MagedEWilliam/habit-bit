@@ -19,7 +19,8 @@ export class YearCalendar {
 
   renderYear() {
 
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    // const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
 
     const getDaysInMonth = (Y, M) => {
       return Number(moment(`${Number(Y)}-${Number(M)}`, 'YYYY-M').daysInMonth());
@@ -76,7 +77,6 @@ export class YearCalendar {
   }
 
   render() {
-    console.log('oops i did it again')
     return [
       <div width="325" height="800" class="year">
         {...this.renderYear()}
