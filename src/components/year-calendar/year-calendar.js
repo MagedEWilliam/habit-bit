@@ -30,33 +30,29 @@ export class YearCalendar {
 
     for (let month = 1; month <= 12; month++) {
 
-      let monthData = [<text font-size="12" class="month-title" y="15" x={(25*(month-1))+(month*2.1)} fill="#CECECE">{monthNames[month - 1]}</text>];
+      let monthData = [<p font-size="12" class="month-title" y="15" x={(25*(month-1))+(month*2.1)} fill="#CECECE">{monthNames[month - 1]}</p>];
 
 
       const monthDays = getDaysInMonth(year, month);
 
       for (let day = 1; day <= monthDays; day++) {
         monthData.push(
-            <g 
+            <div 
               onClick={()=> this.change(`${year}-${month}-${day}`)}
               width="25" 
               height="25" 
               y={25*day} 
               x={(25*(month-1))+(month*2)} 
               class={`day date-${year}-${month}-${day}`} date={`${year}-${month}-${day}`} year={year} month={month} day={day}>
-              <rect 
-                width="25" 
-                height="25" 
-                y={25*day} 
-                x={(25*(month-1))+(month*2)} ></rect>
-              <text 
+                <p 
                 fill="white" 
                 y={(25*day)+16} 
-                x={(25*(month-1))+(month*2) +5}>{day.toString().padStart(2, '0')}</text>
-            </g>
+                x={(25*(month-1))+(month*2) +5}>{day}</p>
+
+            </div>
           );
       }
-      yearData.push(<g class="month">{...monthData}</g>)
+      yearData.push(<span class="month">{...monthData}</span>)
     }
 
     return yearData;
@@ -82,9 +78,9 @@ export class YearCalendar {
   render() {
     console.log('oops i did it again')
     return [
-      <svg width="325" height="800" class="year">
+      <div width="325" height="800" class="year">
         {...this.renderYear()}
-      </svg>
+      </div>
     ];
   }
 

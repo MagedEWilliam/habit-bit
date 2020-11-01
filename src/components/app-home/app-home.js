@@ -72,7 +72,9 @@ export class AppHome {
     this.comp.querySelectorAll(`ion-tab-button`).forEach(tab=>{
       tab.style.filter = 'grayscale(100%) brightness(10) opacity(0.5)';
     })
+
     this.comp.querySelector(`ion-tab-button[habitid="${this._habitid()}"]`).style.filter = 'grayscale(0%) brightness(1) opacity(1)';
+    this.comp.querySelector(`ion-tab-button[habitid="${this._habitid()}"]`).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
     this.shouldSuggest()
   }
 
@@ -219,9 +221,12 @@ export class AppHome {
     setTimeout(()=>{
       if (parms.has('habitid')) {
         this.handleHabitTabChange({target: this.comp.querySelector(`ion-tab-button[habitid="${parms.get('habitid')}"]`)})
+        this.comp.querySelector(`ion-tab-button[habitid="${this._habitid()}"]`).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
       }else{
         this.handleHabitTabChange({target: this.comp.querySelector(`ion-tab-button`)})
+        
       }
+      
     }, 1, this)
 
     if (this._habitid()) {
@@ -305,7 +310,7 @@ export class AppHome {
           </ion-fab-button>
 
           <ion-fab-button size="small" id="zoom" onClick={this.zoomniginOrout.bind(this)} color="light">
-            {this.zoom() ? <ion-icon name="remove-circle-outline"></ion-icon> : <ion-icon name="add-circle-outline"></ion-icon>}
+            {!this.zoom() ? <ion-icon name="remove-circle-outline"></ion-icon> : <ion-icon name="add-circle-outline"></ion-icon>}
           </ion-fab-button>
 
         </ion-fab>

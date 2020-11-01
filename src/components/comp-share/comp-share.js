@@ -5,6 +5,7 @@ import moment from 'moment';
 
 @Component({
   tag: 'comp-share',
+  styleUrl: 'comp-share.css'
 })
 export class EditHabit {
 

@@ -1,64 +1,100 @@
-year-calendar{
-    margin: auto;
+:root{
+    --twitch : .5s;
+}
+year-calendar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    margin-bottom: 150px;
 }
 year-calendar .year{
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    margin: auto;
+    text-align: center;
+    width: auto;
+    max-width: 700px;
 }
 
-year-calendar svg{
-    margin-bottom: 100px;
-    /* transition: transform 300ms ease-in, height 300ms ease-in-out !important; */
-}
-year-calendar {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    transform: scale(0.8);
-    transition: padding 300ms ease-in-out, transform 300ms ease-in !important;
+year-calendar .day{
+    width: calc(100vw / 13);
+    max-width: calc(700px / 13);
+    height: calc(100vw / 13);
+    max-height: calc(700px / 13);
 
-}
-year-calendar.zoom-in{
-    transform: scale(1.5) translate(0vh, 160px);
-}
-
-year-calendar .day text{
-    font-size: 12px;
+    position: relative;
+    background: rgb(51, 51, 51);
     cursor: pointer;
-    fill: #fff;
+    box-shadow: inset 0px 0px 0px 1px rgba(255,255,255,0.1);
+    transition: width 300ms;
 }
-year-calendar .day rect{
-    cursor: pointer;
-    fill: #444444;
-    color: #fff;
-    transition: fill 200ms;
-}
-
-year-calendar .day.highlighted text{
-    fill: var(--highlighted-text-color);
-}
-year-calendar .day.highlighted rect{
-    fill: var(--highlighted-color);
+year-calendar .day p{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
+    height: 10px;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.25), -1px -1px 0px rgba(255, 255, 255, 0.25);
 }
 
-year-calendar .day.highlighted rect{
-    
-}
-year-calendar .day.selected rect{
-    animation: activeSelection 300ms 10ms  alternate infinite ease-in-out;
+year-calendar .day.selected{
+    color: var(--highlighted-text-color);
+    animation: selected 500ms infinite;
 }
 
-
-
-@keyframes activeSelection{
+@keyframes selected{
     from{
-        stroke-width: 3;
-        stroke: #fff;
+        box-shadow: inset 0px 0px 0px 4px transparent;
     }
     to{
-        stroke-width: 0;
+        box-shadow: inset 0px 0px 0px 4px var(--highlighted-text-color);
+    }
+}
+
+year-calendar .day.selected.highlighted{
+    box-shadow: inset 0px 0px 0px 4px var(--highlighted-text-color);
+    animation: unset
+}
+year-calendar .day.highlighted{
+    background-color: var(--highlighted-color);
+    color: var(--highlighted-text-color);
+    overflow: hidden;
+    animation: twitch var(--twitch) alternate infinite ease;
+    box-shadow: 0 0 14px 1px var(--highlighted-color);
+    z-index: 1;
+}
+
+@keyframes twitch{
+    from {
+        filter: brightness(1.05);
+    }
+    to {
+        filter: brightness(1);
+    }
+}
+
+year-calendar.zoom-in {
+    font-size: 9px;
+    margin-bottom: 0px;
+}
+year-calendar.zoom-in .year{
+    width: calc(19px * 13);
+}
+year-calendar.zoom-in .day{
+    width: calc( 100vh / 40 );
+    height: calc( 100vh / 40 );
+}
+year-calendar.zoom-in .day p{
+    top: 3px;
+}
+
+@media(max-width: 640px){
+    year-calendar{
+        font-size: 3vw;
     }
 }
