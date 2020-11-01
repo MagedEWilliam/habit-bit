@@ -54,7 +54,14 @@ export class AppHome {
   }
 
   deleteHabitPrompt(){
-    const del = confirm(`Delete ${state.habits.filter(h => h.id != this._habitid())[0].name }`);
+    let name;;
+    if(state.habits.length > 1){
+      name = state.habits.filter(h => h.id != this._habitid())[0].name;
+    }else{
+      name = state.habits[0].name;
+    }
+
+    const del = confirm(`Delete ${ name}`);
     if(del){
       state.habits = [...state.habits.filter(h => h.id != this._habitid())]
       window.history.pushState({}, '', window.location.origin)
@@ -196,6 +203,10 @@ export class AppHome {
   }
   
   componentDidRender() {
+
+    if(state.habits.length == 0){
+      location.href = '/tutorial/'
+    }
 
     const parms = new URLSearchParams(window.location.search);
     setTimeout(()=>{
