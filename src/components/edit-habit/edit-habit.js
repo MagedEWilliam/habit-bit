@@ -10,12 +10,13 @@ export class EditHabit {
   @Element() page;
 
   @Prop() habitId;
+  @Prop() dismiss = ()=> {};
 
   router = document.querySelector('ion-router')
   gotoFirstHabit = ()=> state.habits.length > 0 ? '/check-in/'+state.habits[0].id : '/tutorial/';
   
-  viewHome(){
-    this.router.push(this.gotoFirstHabit())
+  async viewHome(){
+    await this.dismiss();
   }
 
   createNewHabit(){
@@ -29,7 +30,8 @@ export class EditHabit {
       });
 
       state.habits = state.habits.map(h=>h);
-      this.viewHome()
+      // this.viewHome()
+      location.reload();
     }else{
       this.page.querySelector('ion-input').setFocus();
     }
@@ -71,7 +73,7 @@ export class EditHabit {
         </ion-fab>
 
         <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-          <ion-fab-button color="light" onClick={this.viewHome.bind(this)}>
+          <ion-fab-button color="light" href="/" onClick={this.viewHome.bind(this)}>
             <ion-icon name="close-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>

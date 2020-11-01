@@ -11,7 +11,7 @@ main{
     display: none;
 }
 
-.fab-horizontal-start.fab-vertical-bottom{
+.side-options.fab-horizontal-start.fab-vertical-bottom{
     bottom: 80px;
 }
 
@@ -55,16 +55,19 @@ ion-tab-button{
 
 .suggest{
     position: fixed;
-    bottom: 85px;
+    height: 64px;
+    bottom: 64px;
     left: 0px;
     right: 0px;
     top: unset;
     margin: auto;
     text-align: center;
+    overflow: hidden;
 }
 .suggest ion-chip{
     background: #222428;
     opacity: 1;
+    bottom:0px;
     visibility: visible;
     transition: background 300ms, bottom 300ms, opacity 300ms, visibility 300ms;
 }
@@ -77,4 +80,11 @@ ion-tab-button{
 
 .suggest ion-chip.ion-activated{
     background: rgba(0,0,0,0.8);
+}
+
+.popover .popover-content{
+    width: auto !important;
+    right: 12px !important;
+    top: unset !important;
+    bottom: 0px !important;
 }

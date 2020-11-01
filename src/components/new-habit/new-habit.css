@@ -9,3 +9,6 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 input[type="color"]::-webkit-color-swatch {
     border-radius: 50px;
 }
+ion-content::part(scroll){
+    min-height: 300px !important;
+}

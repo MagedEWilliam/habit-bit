@@ -9,36 +9,39 @@ import { v4 as uuidv4 } from "uuid";
 })
 export class NewHabit {
 
-  @Element() page;
+  @Element() comp;
+
+  @Prop() dismiss = () => {};
+
   @State() habits;
   @State() checkinByHabit;
 
-  router = document.querySelector('ion-router')
-  gotoFirstHabit = ()=> state.habits.length > 0 ? '/check-in/'+state.habits[0].id : '/tutorial/';
+  gotoFirstHabit = ()=> state.habits.length > 0 ? '/?habitid='+state.habits[0].id : '/tutorial/';
   
   viewHome(){
-    this.router.push(this.gotoFirstHabit())
+   this.dismiss();
   }
 
   createNewHabit(){
 
-    if(this.page.querySelector('ion-input').value.trim()){
+    if(this.comp.querySelector('ion-input').value.trim()){
       const id = uuidv4().toString();
       const year = moment().format("YYYY");
       // change the state
       state.habits = [ ...state.habits, {
         order: state.habits.length,
-        name: this.page.querySelector('ion-input').value.trim(),
+        name: this.comp.querySelector('ion-input').value.trim(),
         id: id,
-        color: this.page.querySelector('#color').value
+        color: this.comp.querySelector('#color').value
       }];
 
       const empty = {[id]:{[year]: []}};
       state.checkinByHabit = { ...state.checkinByHabit, ...empty  };
 
-      this.viewHome()
+      // this.viewHome()
+      location.reload();
     }else{
-      this.page.querySelector('ion-input').setFocus();
+      this.comp.querySelector('ion-input').setFocus();
     }
 
   }
@@ -46,8 +49,6 @@ export class NewHabit {
   render() {
     return [
       <ion-header>
-        <ion-toolbar>
-        </ion-toolbar>
         <ion-toolbar>
           <ion-title size="large">New habits</ion-title>
         </ion-toolbar>
@@ -72,7 +73,7 @@ export class NewHabit {
         </ion-fab>
 
         <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-          <ion-fab-button color="light" onClick={this.viewHome.bind(this)}>
+          <ion-fab-button color="light" href="/" onClick={this.viewHome.bind(this)}>
             <ion-icon name="close-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>

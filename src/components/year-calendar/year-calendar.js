@@ -80,6 +80,7 @@ export class YearCalendar {
   }
 
   render() {
+    console.log('oops i did it again')
     return [
       <svg width="325" height="800" class="year">
         {...this.renderYear()}

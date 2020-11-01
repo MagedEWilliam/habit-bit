@@ -11,7 +11,7 @@ export class AppTabs {
     speed: 400
   };
 
-  gotoFirstHabit = ()=> state.habits.length > 0 ? '/check-in/'+state.habits[0].id : '/tutorial/';
+  gotoFirstHabit = ()=> state.habits.length > 0 ? '/?habitid='+state.habits[0].id : '/tutorial/';
 
   render() {
     return [

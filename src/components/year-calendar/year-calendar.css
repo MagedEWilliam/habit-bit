@@ -43,6 +43,10 @@ year-calendar .day.highlighted text{
 year-calendar .day.highlighted rect{
     fill: var(--highlighted-color);
 }
+
+year-calendar .day.highlighted rect{
+    
+}
 year-calendar .day.selected rect{
     animation: activeSelection 300ms 10ms  alternate infinite ease-in-out;
 }

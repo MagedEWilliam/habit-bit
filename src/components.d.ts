@@ -14,20 +14,20 @@ export namespace Components {
     }
     interface AppTut {
     }
-    interface CheckIn {
-        "getCurrentHabit": { order: number; name: string; id: string; color: string; };
-        "habitId": any;
-        "zoom": boolean;
-    }
     interface ColorPicker {
         "target": any;
     }
+    interface CompShare {
+        "habit_Id": () => void;
+    }
     interface EditHabit {
+        "dismiss": () => void;
         "habitId": any;
     }
     interface HabitBit {
     }
     interface NewHabit {
+        "dismiss": () => void;
     }
     interface YearCalendar {
         "change": () => void;
@@ -60,17 +60,17 @@ declare global {
         prototype: HTMLAppTutElement;
         new (): HTMLAppTutElement;
     };
-    interface HTMLCheckInElement extends Components.CheckIn, HTMLStencilElement {
-    }
-    var HTMLCheckInElement: {
-        prototype: HTMLCheckInElement;
-        new (): HTMLCheckInElement;
-    };
     interface HTMLColorPickerElement extends Components.ColorPicker, HTMLStencilElement {
     }
     var HTMLColorPickerElement: {
         prototype: HTMLColorPickerElement;
         new (): HTMLColorPickerElement;
+    };
+    interface HTMLCompShareElement extends Components.CompShare, HTMLStencilElement {
+    }
+    var HTMLCompShareElement: {
+        prototype: HTMLCompShareElement;
+        new (): HTMLCompShareElement;
     };
     interface HTMLEditHabitElement extends Components.EditHabit, HTMLStencilElement {
     }
@@ -101,8 +101,8 @@ declare global {
         "app-root": HTMLAppRootElement;
         "app-tabs": HTMLAppTabsElement;
         "app-tut": HTMLAppTutElement;
-        "check-in": HTMLCheckInElement;
         "color-picker": HTMLColorPickerElement;
+        "comp-share": HTMLCompShareElement;
         "edit-habit": HTMLEditHabitElement;
         "habit-bit": HTMLHabitBitElement;
         "new-habit": HTMLNewHabitElement;
@@ -118,20 +118,20 @@ declare namespace LocalJSX {
     }
     interface AppTut {
     }
-    interface CheckIn {
-        "getCurrentHabit"?: { order: number; name: string; id: string; color: string; };
-        "habitId"?: any;
-        "zoom"?: boolean;
-    }
     interface ColorPicker {
         "target"?: any;
     }
+    interface CompShare {
+        "habit_Id"?: () => void;
+    }
     interface EditHabit {
+        "dismiss"?: () => void;
         "habitId"?: any;
     }
     interface HabitBit {
     }
     interface NewHabit {
+        "dismiss"?: () => void;
     }
     interface YearCalendar {
         "change"?: () => void;
@@ -143,8 +143,8 @@ declare namespace LocalJSX {
         "app-root": AppRoot;
         "app-tabs": AppTabs;
         "app-tut": AppTut;
-        "check-in": CheckIn;
         "color-picker": ColorPicker;
+        "comp-share": CompShare;
         "edit-habit": EditHabit;
         "habit-bit": HabitBit;
         "new-habit": NewHabit;
@@ -159,8 +159,8 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-tabs": LocalJSX.AppTabs & JSXBase.HTMLAttributes<HTMLAppTabsElement>;
             "app-tut": LocalJSX.AppTut & JSXBase.HTMLAttributes<HTMLAppTutElement>;
-            "check-in": LocalJSX.CheckIn & JSXBase.HTMLAttributes<HTMLCheckInElement>;
             "color-picker": LocalJSX.ColorPicker & JSXBase.HTMLAttributes<HTMLColorPickerElement>;
+            "comp-share": LocalJSX.CompShare & JSXBase.HTMLAttributes<HTMLCompShareElement>;
             "edit-habit": LocalJSX.EditHabit & JSXBase.HTMLAttributes<HTMLEditHabitElement>;
             "habit-bit": LocalJSX.HabitBit & JSXBase.HTMLAttributes<HTMLHabitBitElement>;
             "new-habit": LocalJSX.NewHabit & JSXBase.HTMLAttributes<HTMLNewHabitElement>;
