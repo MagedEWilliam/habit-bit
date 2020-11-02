@@ -31,6 +31,7 @@ main{
 }
 
 .tab-wrapper{
+    width: 100%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -40,7 +41,7 @@ main{
 }
 
 ion-tab-button{
-    min-width: 128px;
+    /* min-width: 128px; */
     transition: filter 300ms;   
 }
 
