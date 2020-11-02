@@ -35,7 +35,7 @@ main{
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    overflow: scroll;
+    overflow: auto;
     overflow-y: hidden;
 }
 

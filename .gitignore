@@ -1,4 +1,5 @@
 dist/
+!www/favicon.png
 !www/favicon.ico
 www/
 

@@ -238,6 +238,25 @@ export class AppHome {
     );
   }
 
+  markToday(){
+    this.changeDay(this.comp.querySelector('year-calendar .selected').getAttribute('date'));
+
+    let currentHabitIndex = 0;
+    state.habits.map((habit, index)=> {
+
+      if(habit.id == this._habitid() ){
+        currentHabitIndex = index;
+      }
+
+    })
+    let nextHabit = state.habits[0].id;
+    if(state.habits[currentHabitIndex+1]){
+      nextHabit = state.habits[currentHabitIndex+1].id
+    }
+    setTimeout(()=>{
+      this.comp.querySelector(`ion-tab-button[habitid="${nextHabit}"]`).click();
+    }, 200, this)
+  }
 
   toggleSuggest(val) {
     this.suggest = () => val;
@@ -252,7 +271,7 @@ export class AppHome {
 
             <div class='suggest'>
               <ion-chip color="dark">
-                <ion-label onClick={() => this.changeDay(this.comp.querySelector('year-calendar .selected').getAttribute('date'))}>Mark today?</ion-label>
+                <ion-label onClick={() => this.markToday() }>Mark today?</ion-label>
                 <ion-icon onClick={ev => this.toggleSuggest(false)} name="close-circle"></ion-icon>
               </ion-chip>
             </div>
