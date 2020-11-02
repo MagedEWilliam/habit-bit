@@ -10,6 +10,7 @@ prefersDark.addListener((mediaQuery) => toggleDarkTheme(mediaQuery.matches));
 function toggleDarkTheme(shouldAdd) {
   document.body.classList.toggle('dark', shouldAdd);
 }*/
+window.resizeTo(375, 812);
 
 export default () => {
   // setupConfig({

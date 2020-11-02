@@ -3,7 +3,6 @@ importScripts('./workbox-v5.1.4/workbox-sw.js')
 workbox.routing.registerRoute(
     ({ event }) => event.request.mode === 'navigate',
     async () => {
-        console.log('im here')
       const defaultBase = '/index.html';
       return caches
         .match(workbox.precaching.getCacheKeyForURL(defaultBase))

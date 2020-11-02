@@ -38,8 +38,7 @@ export class NewHabit {
       const empty = {[id]:{[year]: []}};
       state.checkinByHabit = { ...state.checkinByHabit, ...empty  };
 
-      // this.viewHome()
-      location.reload();
+      window.location = '/'
     }else{
       this.comp.querySelector('ion-input').setFocus();
     }
@@ -67,7 +66,7 @@ export class NewHabit {
         <color-picker class="ion-padding" target="color"/>
 
         <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-          <ion-fab-button color="light" onClick={this.createNewHabit.bind(this)}>
+          <ion-fab-button color="light" href="/" onClick={this.createNewHabit.bind(this)}>
             <ion-icon name="checkmark-outline"></ion-icon>
           </ion-fab-button>
         </ion-fab>
