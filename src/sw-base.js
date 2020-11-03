@@ -14,4 +14,6 @@ workbox.routing.registerRoute(
         });
     }
   );
+  workbox.routing.registerRoute('index.html', workbox.strategies.cacheFirst())
+
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);

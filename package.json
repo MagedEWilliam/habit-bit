@@ -12,7 +12,8 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watch",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "serve": "cd www && ws --spa index.html -p 8181"
   },
   "devDependencies": {
     "@ionic/core": "^5.3.2",
