@@ -14,6 +14,19 @@ workbox.routing.registerRoute(
         });
     }
   );
-  workbox.routing.registerRoute('index.html', workbox.strategies.cacheFirst())
+  
+  workbox.routing.registerRoute(
+    '/build/app.esm.js',
+    new workbox.strategies.CacheFirst({
+      cacheName: 'html-cache'
+    })
+  );
+  
+  workbox.routing.registerRoute(
+    '/build/app.css',
+    new workbox.strategies.CacheFirst({
+      cacheName: 'html-cache'
+    })
+  );
 
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
