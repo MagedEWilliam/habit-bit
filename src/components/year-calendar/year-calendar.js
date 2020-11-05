@@ -370,9 +370,9 @@ export class YearCalendar {
       <span class="month">
         <p class="month-title" fill="#CECECE">nov</p>
         <div class="day date-2020-11-1" date="2020-11-1" year="2020" month="11" day="1"><p>1</p></div>
-        <div class="day date-2020-11-2 highlighted" date="2020-11-2" year="2020" month="11" day="2"><p>2</p></div>
+        <div class="day date-2020-11-2" date="2020-11-2" year="2020" month="11" day="2"><p>2</p></div>
         <div class="day date-2020-11-3" date="2020-11-3" year="2020" month="11" day="3"><p>3</p></div>
-        <div class="day date-2020-11-4 selected" date="2020-11-4" year="2020" month="11" day="4"><p>4</p></div>
+        <div class="day date-2020-11-4" date="2020-11-4" year="2020" month="11" day="4"><p>4</p></div>
         <div class="day date-2020-11-5" date="2020-11-5" year="2020" month="11" day="5"><p>5</p></div>
         <div class="day date-2020-11-6" date="2020-11-6" year="2020" month="11" day="6"><p>6</p></div>
         <div class="day date-2020-11-7" date="2020-11-7" year="2020" month="11" day="7"><p>7</p></div>
