@@ -22,6 +22,9 @@
     "workbox-build": "^5.1.4"
   },
   "dependencies": {
+    "@capacitor/android": "^2.4.2",
+    "@capacitor/cli": "^2.4.2",
+    "@capacitor/core": "^2.4.2",
     "@types/uuid": "^8.3.0",
     "moment": "^2.29.1",
     "uuid": "^8.3.1"
