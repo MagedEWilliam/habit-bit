@@ -1,5 +1,9 @@
 importScripts('./workbox-v5.1.4/workbox-sw.js')
 
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
+
 workbox.routing.registerRoute(
     ({ event }) => event.request.mode === 'navigate',
     async () => {
@@ -21,7 +25,8 @@ workbox.routing.registerRoute(
       cacheName: 'app-js',
       cacheExpiration: {
         maxAgeSeconds: 60 * 60 * 24 * 30
-      }
+      },
+      cacheableResponse: {statuses: [200]}
     })
   );
   
@@ -31,7 +36,8 @@ workbox.routing.registerRoute(
       cacheName: 'app-css',
       cacheExpiration: {
         maxAgeSeconds: 60 * 60 * 24 * 30
-      }
+      },
+      cacheableResponse: {statuses: [200]}
     })
   );
 

@@ -30,7 +30,7 @@ year-calendar .month{
     width: calc(100vw / 13);
 }
 year-calendar .day{
-    height: calc(100vw / 13);
+    height: calc(100vh / 13);
     /* max-height: calc(700px / 13); */
 
     display: flex;
