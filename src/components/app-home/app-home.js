@@ -173,7 +173,6 @@ export class AppHome {
     const checkYear = moment(day, 'YYYY').format('YYYY');
     const thisYear = year;
     
-    console.log(day)
     if (checkYear == thisYear) {
       // defence check if property exist
       // if not create it
@@ -190,7 +189,6 @@ export class AppHome {
       if (habitRemoved.length != state.checkinByHabit[_habitid][thisYear].length) {
         state.checkinByHabit[_habitid][thisYear] = habitRemoved;
       } else {
-        console.log('yay')
         state.checkinByHabit[_habitid][thisYear].push(day);
       }
       
