@@ -1,5 +1,4 @@
 importScripts('./workbox-v5.1.4/workbox-sw.js')
-importScripts('./workbox-v5.1.4/workbox-expiration.prod.js')
 
 workbox.routing.registerRoute(
     ({ event }) => event.request.mode === 'navigate',
