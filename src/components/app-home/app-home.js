@@ -79,25 +79,29 @@ export class AppHome {
     this.comp.querySelectorAll(`ion-tab-button`).forEach(tab=>{
       tab.style.filter = 'grayscale(100%) brightness(10) opacity(0.5)';
     })
-
-    this.comp.querySelector(`ion-tab-button[habitid="${this._habitid()}"]`).style.filter = 'grayscale(0%) brightness(1) opacity(1)';
-    this.comp.querySelector(`ion-tab-button[habitid="${this._habitid()}"]`).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
-    this.shouldSuggest()
+    const hid= this._habitid();
+    if(hid){
+      this.comp.querySelector(`ion-tab-button[habitid="${hid}"]`).style.filter = 'grayscale(0%) brightness(1) opacity(1)';
+      this.comp.querySelector(`ion-tab-button[habitid="${hid}"]`).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+      this.shouldSuggest()
+    }
   }
 
   updateCalendar(e) {
-    const habitid = e.target.getAttribute('habitid');
-    this._habitid = ()=> habitid;
-    
-    const habitColor = e.target.getAttribute('habitColor');
-    const root = document.querySelector(':root');
-    root.style.setProperty('--highlighted-color', habitColor);
-    root.style.setProperty('--highlighted-text-color', this.invertHex(habitColor));
+    if(e.target){
+      const habitid = e.target.getAttribute('habitid');
+      this._habitid = ()=> habitid;
+      
+      const habitColor = e.target.getAttribute('habitColor');
+      const root = document.querySelector(':root');
+      root.style.setProperty('--highlighted-color', habitColor);
+      root.style.setProperty('--highlighted-text-color', this.invertHex(habitColor));
 
-    if (this._habitid()) {
-      this.updateYearHiglight(this._habitid());
+      if (this._habitid()) {
+        this.updateYearHiglight(this._habitid());
 
-      e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        e.target.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+      }
     }
   }
 
@@ -165,30 +169,37 @@ export class AppHome {
   }
 
   changeDayData(day, year, _habitid) {
-    const checkYear = moment(day, 'YYYY-M-D').format('YYYY');
-    const thisYear = year;
 
+    const checkYear = moment(day, 'YYYY').format('YYYY');
+    const thisYear = year;
+    
+    console.log(day)
     if (checkYear == thisYear) {
+      // defence check if property exist
+      // if not create it
       if (!state.checkinByHabit.hasOwnProperty(_habitid)) {
         state.checkinByHabit[_habitid] = {};
       }
       if (!state.checkinByHabit[_habitid].hasOwnProperty(thisYear)) {
         state.checkinByHabit[_habitid][thisYear] = [];
       }
-
-      const blah = state.checkinByHabit[_habitid][thisYear].filter(h => h != day);
-
-      if (blah.length != state.checkinByHabit[_habitid][thisYear].length) {
-        state.checkinByHabit[_habitid][thisYear] = blah;
+      
+      // prep remove habit from list
+      const habitRemoved = state.checkinByHabit[_habitid][thisYear].filter(h => h != day);
+      
+      if (habitRemoved.length != state.checkinByHabit[_habitid][thisYear].length) {
+        state.checkinByHabit[_habitid][thisYear] = habitRemoved;
       } else {
+        console.log('yay')
         state.checkinByHabit[_habitid][thisYear].push(day);
       }
-
+      
       state.checkinByHabit = { ...state.checkinByHabit };
     }
-
+    
     setTimeout(
       this_habitid => {
+        
         if (this.comp.querySelector(`ion-tab-button[habitid="${this_habitid}"]`)) {
           this.comp.querySelector(`ion-tab-button[habitid="${this_habitid}"]`).click();
         }
@@ -212,7 +223,9 @@ export class AppHome {
     setTimeout(()=>{
       if (parms.has('habitid')) {
         this.handleHabitTabChange({target: this.comp.querySelector(`ion-tab-button[habitid="${parms.get('habitid')}"]`)})
-        this.comp.querySelector(`ion-tab-button[habitid="${this._habitid()}"]`).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+        if(this.comp.querySelector(`ion-tab-button[habitid="${parms.get('habitid')}"]`)){
+          this.comp.querySelector(`ion-tab-button[habitid="${parms.get('habitid')}"]`).scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+        }
       }else{
         this.handleHabitTabChange({target: this.comp.querySelector(`ion-tab-button`)})
         
