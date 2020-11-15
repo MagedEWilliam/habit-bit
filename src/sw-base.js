@@ -1,4 +1,5 @@
 importScripts('./workbox-v5.1.4/workbox-sw.js')
+importScripts('./workbox-v5.1.4/workbox-expiration.prod.js')
 
 workbox.routing.registerRoute(
     ({ event }) => event.request.mode === 'navigate',
@@ -18,14 +19,20 @@ workbox.routing.registerRoute(
   workbox.routing.registerRoute(
     '/build/app.esm.js',
     new workbox.strategies.CacheFirst({
-      cacheName: 'html-cache'
+      cacheName: 'app-js',
+      cacheExpiration: {
+        maxAgeSeconds: 60 * 60 * 24 * 30
+      }
     })
   );
   
   workbox.routing.registerRoute(
     '/build/app.css',
     new workbox.strategies.CacheFirst({
-      cacheName: 'html-cache'
+      cacheName: 'app-css',
+      cacheExpiration: {
+        maxAgeSeconds: 60 * 60 * 24 * 30
+      }
     })
   );
 
